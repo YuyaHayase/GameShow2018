@@ -125,6 +125,7 @@ GameObject:
   - component: {fileID: 121441235}
   - component: {fileID: 121441234}
   - component: {fileID: 121441238}
+  - component: {fileID: 121441239}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -201,7 +202,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 121441233}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7fc6bde01469c7b4badee5362f191d96, type: 3}
   m_Name: 
@@ -211,6 +212,18 @@ MonoBehaviour:
   blurIterations: 1
   blurType: 0
   blurShader: {fileID: 4800000, guid: f9d5fa183cd6b45eeb1491f74863cd91, type: 3}
+--- !u!114 &121441239
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 121441233}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e070d5b98049aa54b8a30bd41fcc46a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BlurOptim: {fileID: 121441238}
 --- !u!1 &1494018608
 GameObject:
   m_ObjectHideFlags: 0
