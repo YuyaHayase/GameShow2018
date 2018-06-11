@@ -4,6 +4,9 @@ using UnityEngine;
 
 abstract class hEnemy : MonoBehaviour {
 
+    // 移動の遅延
+    float MoveDelay = 30.0f;
+
     /// <summary>
     /// エネミーのステータス
     /// </summary>
@@ -55,24 +58,24 @@ abstract class hEnemy : MonoBehaviour {
                 dx = -1;
                 break;
             case CharacterMoveDirection.TopRight:
-                CharacterMove(CharacterMoveDirection.Top);
-                CharacterMove(CharacterMoveDirection.Right);
+                dy = 1;
+                dx = 1;
                 break;
             case CharacterMoveDirection.TopLeft:
-                CharacterMove(CharacterMoveDirection.Top);
-                CharacterMove(CharacterMoveDirection.Left);
+                dy = 1;
+                dx = -1;
                 break;
             case CharacterMoveDirection.BottomRight:
-                CharacterMove(CharacterMoveDirection.Bottom);
-                CharacterMove(CharacterMoveDirection.Right);
+                dy = -1;
+                dx = 1;
                 break;
             case CharacterMoveDirection.BottomLeft:
-                CharacterMove(CharacterMoveDirection.Bottom);
-                CharacterMove(CharacterMoveDirection.Left);
+                dy = -1;
+                dx = -1;
                 break;
         }
 
-        pos = new Vector2(dx / 30.0f, dy / 30.0f);
+        pos = new Vector2(dx / MoveDelay, dy / MoveDelay);
         return pos;
     }
 }
