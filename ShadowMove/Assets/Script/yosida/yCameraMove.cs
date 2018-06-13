@@ -6,7 +6,7 @@ public class yCameraMove : MonoBehaviour {
 
     GameObject player;
 
-    [SerializeField,Header("")]
+    [SerializeField,Header("カメラが追従できる最小値")]
     float min;
     [SerializeField,Header("")]
     float max;
@@ -18,6 +18,7 @@ public class yCameraMove : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
         transform.position = new Vector3
             (player.transform.position.x,
              player.transform.position.y,

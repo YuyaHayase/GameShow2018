@@ -116,7 +116,7 @@ public class yPlayer : MonoBehaviour {
             flgWork = false;
         }
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.UpArrow))
         {
             flgJump = true;
         }
@@ -125,10 +125,17 @@ public class yPlayer : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D coll)
     {
+        //地面に当たったら落下処理がなくなる
         if (coll.gameObject.CompareTag("block"))
         {
             flgJump = false;
             time = 0;
+        }
+
+        //ゲームオーバー
+        if (coll.gameObject.CompareTag("GameOver"))
+        {
+            print("死んじゃった☆");
         }
     }
 }
