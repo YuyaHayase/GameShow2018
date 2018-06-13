@@ -7,6 +7,17 @@ abstract class hEnemy : MonoBehaviour {
     // 移動の遅延
     float MoveDelay = 30.0f;
 
+    // 座標記憶
+    [Header("エネミーの座標")]
+    public Vector2 pos;
+
+    // 移動方向
+    [SerializeField, Header("移動方向")]
+    public CharacterMoveDirection CharMoveDirection = CharacterMoveDirection.Left;
+
+    [Header("アニメーションの速度")]
+    public float AnimationSpeed = 1.0f;
+
     /// <summary>
     /// エネミーのステータス
     /// </summary>
@@ -31,9 +42,6 @@ abstract class hEnemy : MonoBehaviour {
         Left,
         TopLeft
     }
-
-    // 座標記憶
-    public Vector2 pos;
 
     // 抽象化キャラクターのステータス
     public abstract void CharacterStatus(Status status);
