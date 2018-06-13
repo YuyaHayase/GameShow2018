@@ -72,6 +72,12 @@ public class fShodow : MonoBehaviour
     [SerializeField, Header("左移動")]
     private string leftMOVE;
 
+    [SerializeField, Header("上移動")]
+    private string upMOVE;
+
+    [SerializeField, Header("下移動")]
+    private string downMOVE;
+
     [SerializeField, Header("アクションボタン")]
     private string actionBTN;
 
@@ -123,6 +129,16 @@ public class fShodow : MonoBehaviour
             {
                 transform.Translate(sta.get_shedowWALK()*-1 * Time.deltaTime, 0, 0);
             }
+
+            if (Input.GetKey(upMOVE))
+            {
+                transform.Translate(0,sta.get_shedowWALK()* Time.deltaTime, 0);
+            }
+
+            if (Input.GetKey(downMOVE))
+            {
+                transform.Translate(0,sta.get_shedowWALK() * -1 * Time.deltaTime, 0);
+            }
             //action行動
             if (Input.GetKeyDown(actionBTN))
             {
@@ -145,6 +161,14 @@ public class fShodow : MonoBehaviour
                 obj.transform.Translate(sta.get_shedowWALK()*-1 * Time.deltaTime, 0, 0);
             }
 
+            if (Input.GetKey(downMOVE))
+            {
+                obj.transform.Translate(0, sta.get_shedowWALK() * -1 * Time.deltaTime, 0);
+            }
+            if (Input.GetKey(upMOVE))
+            {
+               obj.transform.Translate(0, sta.get_shedowWALK() * Time.deltaTime, 0);
+            }
 
             if (Input.GetKey(actionBTN))
             {
