@@ -86,6 +86,10 @@ public class fShodow : MonoBehaviour
 
     
 
+    GameObject rideobj;
+
+    
+
 
     Status sta = new Status(); //アクセス修飾詞
     public GameObject obj;  //
@@ -93,12 +97,16 @@ public class fShodow : MonoBehaviour
     public GameObject player;
 
     int a;
+    [SerializeField,Header("半径")]
+    float re;
    
 
     void Start()
     {
         sta.Statas(10, 2.0f, 10,1);
         player = GameObject.Find("player");
+        re = sta.get_r();
+        
     }
 
     // Update is called once per frame
@@ -172,8 +180,8 @@ public class fShodow : MonoBehaviour
 
             if (Input.GetKey(actionBTN))
             {
-                //物体ごとのメソッドを呼ぶ
-                //switch(obj.name)
+                //rideobj = GameObject.Find("Rideobj").GetComponent<>();
+
 
             }
 
