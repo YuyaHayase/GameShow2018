@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class yPlayer : MonoBehaviour {
+public class yPlayer : MonoBehaviour
+{
 
     Rigidbody2D rigi2D;
 
@@ -12,9 +13,10 @@ public class yPlayer : MonoBehaviour {
     [SerializeField, Header("")]
     ContactFilter2D filter2D;
 
-    [SerializeField,Header("歩くスピード")]
+    [SerializeField, Header("歩くスピード")]
     float speed;
 
+    float workSpeed = 0.0f;
 
     [Header("----落下する減速率の調整　高いほど落下する速度が速くなる----")]
     [SerializeField, Header("ジャンプの減速率")]
@@ -36,20 +38,21 @@ public class yPlayer : MonoBehaviour {
     [SerializeField, Header("重力")]
     float Gravity = 9.8f;
 
-    bool flgWork = false;
-    bool flgBackWork = false;
     bool flgJump = false;
     bool flgFilter = false;
+    bool flg = true;
 
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start()
+    {
         rigi2D = GetComponent<Rigidbody2D>();
         box2D = GetComponent<BoxCollider2D>();
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update()
+    {
         // y = Vot + 1 / 2gt²
         //y = g * t
 
@@ -58,15 +61,8 @@ public class yPlayer : MonoBehaviour {
         //あたり判定
         flgFilter = rigi2D.IsTouching(filter2D);
 
+        //移動操作キー
         OperationKey();
-
-        //前に歩く
-        if (flgWork)
-            transform.position += new Vector3(speed, 0, 0);
-
-        //後ろに歩く
-        if (flgBackWork)
-            transform.position -= new Vector3(speed, 0, 0);
 
         //ジャンプ
         if (flgJump)
@@ -76,14 +72,14 @@ public class yPlayer : MonoBehaviour {
             time += Time.deltaTime;
             y = (Vo * time) - Gravity * (time * time) * jumpAccel;
 
-            if(y < yMax)
+            if (y < yMax)
             {
                 y *= jumpFallAccel;
             }
 
             transform.position += new Vector3(0, y, 0);
         }
-        else if (!flgFilter)
+        else if (flg)
         {
             //ジャンプ以外の時の自由落下
             time += Time.deltaTime;
@@ -91,51 +87,52 @@ public class yPlayer : MonoBehaviour {
 
             transform.position -= new Vector3(0, y, 0);
         }
+
+
     }
 
     //操作キー
     private void OperationKey()
     {
+
         //右に歩く
-        if (Input.GetButtonDown("Horizontal"))
-        {
-            flgWork = true;
-            flgBackWork = false;
-        }
+        if (Input.GetKeyDown(KeyCode.RightArrow))
+            workSpeed = speed;
 
         //後ろに下がる
         if (Input.GetKeyDown(KeyCode.LeftArrow))
-        {
-            flgBackWork = true;
-            flgWork = false;
-        }
+            workSpeed = -speed;
 
         //止まる
         if (Input.GetKeyDown(KeyCode.DownArrow))
-        {
-            flgWork = false;
-        }
+            workSpeed = 0.0f;
 
-        if (Input.GetKeyDown(KeyCode.UpArrow))
-        {
+        //ジャンプキー
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow))
             flgJump = true;
-        }
 
+        transform.position += new Vector3(workSpeed, 0, 0);
     }
 
     private void OnTriggerEnter2D(Collider2D coll)
     {
-        //地面に当たったら落下処理がなくなる
         if (coll.gameObject.CompareTag("block"))
         {
+            print("触れている");
             flgJump = false;
+            flg = false;
             time = 0;
         }
+    }
 
-        //ゲームオーバー
-        if (coll.gameObject.CompareTag("GameOver"))
+    private void OnTriggerExit2D(Collider2D coll)
+    {
+        if (coll.gameObject.CompareTag("block"))
         {
-            print("死んじゃった☆");
+            print("離れた");
+
+            flg = true;
+            time = 0;
         }
     }
 }

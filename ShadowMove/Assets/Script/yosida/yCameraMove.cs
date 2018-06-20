@@ -11,6 +11,9 @@ public class yCameraMove : MonoBehaviour {
     [SerializeField,Header("")]
     float max;
 
+    [SerializeField, Header("カメラ調整")]
+    float y;
+
 	// Use this for initialization
 	void Start () {
         player = GameObject.Find("player");
@@ -21,7 +24,7 @@ public class yCameraMove : MonoBehaviour {
 
         transform.position = new Vector3
             (player.transform.position.x,
-             player.transform.position.y,
+             player.transform.position.y + y,
              transform.position.z
              );
 	}

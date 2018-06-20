@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class yWoodFall : MonoBehaviour {
 
-    [SerializeField, Header("倒れる方向　右…１　左…２")]
+    [SerializeField, Header("倒れる方向　左…１　右…２")]
     [Range(1,2)]
     int fallDir = 1;
 
@@ -20,7 +20,7 @@ public class yWoodFall : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        //左に倒れる場合マイナスになる
+        //右に倒れる場合マイナスになる
         if (fallDir == 2)
             dirSpeed = -dirSpeed;
 
@@ -35,14 +35,14 @@ public class yWoodFall : MonoBehaviour {
 
             //倒れる方向を決める
             if (fallDir == 1)
-                RightFall();
-            else
                 LeftFall();
+            else
+                RightFall();
         }
 	}
 
-    //右に倒れる
-    private void RightFall()
+    // 左に倒れる
+    private void LeftFall()
     {
         if(transform.localEulerAngles.z >= angle)
         {
@@ -51,8 +51,8 @@ public class yWoodFall : MonoBehaviour {
                 (transform.eulerAngles.x, transform.eulerAngles.y, angle);
         }
     }
-    //左に倒れる
-    private void LeftFall()
+    //右に倒れる
+    private void RightFall()
     {
         if (transform.localEulerAngles.z <= angle)
         {
