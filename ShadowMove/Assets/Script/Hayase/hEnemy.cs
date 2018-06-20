@@ -15,8 +15,12 @@ abstract class hEnemy : MonoBehaviour {
     [SerializeField, Header("移動方向")]
     public CharacterMoveDirection CharMoveDirection = CharacterMoveDirection.Left;
 
+    // アニメーションの速度
     [Header("アニメーションの速度")]
     public float AnimationSpeed = 1.0f;
+
+    [Header("ステータス")]
+    public Status EnemyState = Status.Wait;
 
     /// <summary>
     /// エネミーのステータス
