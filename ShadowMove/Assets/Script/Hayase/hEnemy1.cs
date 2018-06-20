@@ -15,9 +15,6 @@ class hEnemy1 : hEnemy {
     [SerializeField, Header("移動速度")]
     float MoveSpeed = 1.0f;
 
-    // 移動方向
-    [SerializeField, Header("移動方向")]
-    CharacterMoveDirection CharMoveDirection = CharacterMoveDirection.Left;
 
     // Use this for initialization
 	void Start () {
@@ -29,6 +26,7 @@ class hEnemy1 : hEnemy {
     private void FixedUpdate()
     {
         CharacterStatus(Status.Move);
+        GetComponent<Animator>().speed = AnimationSpeed;
     }
 
     // キャラクターのステータス
