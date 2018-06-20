@@ -8,7 +8,7 @@ public class timeover : MonoBehaviour {
     public float red, green, blue,aphle;
 
     [SerializeField, Header("RGB"), Range(0, 1.0f)]
-    float t = 0.0005f; //変化割合
+    public float t = 0.0005f; //変化割合
 
     
 
