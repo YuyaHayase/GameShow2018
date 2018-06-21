@@ -4,6 +4,10 @@ using UnityEngine;
 
 abstract class hEnemy : MonoBehaviour {
 
+    // プレイヤーオブジェクト
+    [Header("PlayerObject")]
+    public GameObject player;
+
     // 移動の遅延
     float MoveDelay = 30.0f;
 
@@ -89,5 +93,10 @@ abstract class hEnemy : MonoBehaviour {
 
         pos = new Vector2(dx / MoveDelay, dy / MoveDelay);
         return pos;
+    }
+
+    public void DeleteEnemy()
+    {
+        Destroy(gameObject);
     }
 }

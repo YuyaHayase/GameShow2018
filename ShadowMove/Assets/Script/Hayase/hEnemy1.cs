@@ -4,10 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 class hEnemy1 : hEnemy {
-
-    [SerializeField, Header("PlayerObject")]
-    GameObject player;
-
     // 攻撃しているかどうか
     static bool isAttacking = false;
 
@@ -31,7 +27,7 @@ class hEnemy1 : hEnemy {
     // Use this for initialization
 	void Start () {
         // 初期座標代入
-        pos = new Vector2(transform.position.x, transform.position.y);
+        pos = transform.position;
         InitialPosition = pos;
         if (player == null) Debug.LogError("Playerを入れてください");
 
