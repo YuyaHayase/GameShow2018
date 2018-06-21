@@ -51,18 +51,33 @@ public class yGimmick : MonoBehaviour {
     IEnumerator Gimmick()
     {
         yield return new WaitForSeconds(5.0f);
+
         float yPos = pos.y;
+
         for (int y = list.Count - 1; y >= 0; y--)
         {
             float xPos = pos.x;
             for(int x = 0;x < list[y].Length; x++)
             {
+                //ブロックを生成
                 SpriteRenderer spr = Instantiate(mapTile[int.Parse(list[y][x])]);
+
+                //生成したオブジェクトをマップデータの子オブジェクトへ
                 spr.transform.parent = mapdata.transform;
+
+                //生成位置
                 spr.transform.localPosition = new Vector3(xPos, yPos, 0);
+
+                //タグ
                 spr.tag = "block";
+
+                //BoxCollider2Dを追加
                 spr.gameObject.AddComponent<BoxCollider2D>();
+
+                //次の生成位置をずらす
                 xPos += interval;
+
+                //生成する時間を0.1秒遅くする
                 yield return new WaitForSeconds(0.1f);
             }
             yPos += interval;
