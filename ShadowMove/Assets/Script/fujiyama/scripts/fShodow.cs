@@ -6,15 +6,10 @@ public class fShodow : MonoBehaviour
 {
     
     
-    struct Status
-    {
+    
         [SerializeField, Header("移動スピード")]
         private float shedowWALK;
-        public float get_shedowWALK()
-        {
-            return shedowWALK;
-        }
-
+    
         public GameObject objct;
 
 
@@ -24,31 +19,17 @@ public class fShodow : MonoBehaviour
 
         [SerializeField, Header("影の移動制限の値")]
         public float r;
-        public float get_r()
-        {
-            return r;
-        }
+       
 
         [SerializeField, Header("HP")]
         public int HP;
-        
-        public int _HPsetter
-        {
-            get { return HP; }
-            set { HP = value; }
-        }
 
         [SerializeField, Header("ダメージ量")]
         public int Dame;
 
-        public int get_Dame()
-        {
-            return Dame;
-        }
+        private Vector2 shodow_point;//　影のベクトル
 
-        public Vector2 shodow_point;//　影のベクトル
-
-        public Vector2 player_point;//  勇者のベクトル 
+        private Vector2 player_point;//  勇者のベクトル 
 
        
 
@@ -60,52 +41,40 @@ public class fShodow : MonoBehaviour
             Dame = _Dame;
         }
 
-    }
+   
 
     private static bool walkflg = true;
 
     private string judge;
 
     [SerializeField, Header("右移動")]
-    private string rightMOVE;
+    public string rightMOVE;
 
     [SerializeField, Header("左移動")]
-    private string leftMOVE;
+    public string leftMOVE;
 
     [SerializeField, Header("上移動")]
-    private string upMOVE;
+    public string upMOVE;
 
     [SerializeField, Header("下移動")]
-    private string downMOVE;
+    public string downMOVE;
 
     [SerializeField, Header("アクションボタン")]
-    private string actionBTN;
+    public string actionBTN;
 
     [SerializeField, Header("脱出ボタン")]
-    private string exitBTN;
-
-    
-
-    GameObject rideobj;
-
-    
-
-
-    Status sta = new Status(); //アクセス修飾詞
-    public GameObject obj;  //
-
-    public GameObject player;
+    public string exitBTN;
+    [SerializeField,Header("乗り移りオブジェクト")]
+    public GameObject obj;
 
     int a;
-    [SerializeField,Header("半径")]
-    float re;
-   
+    
 
     void Start()
     {
-        sta.Statas(10, 2.0f, 10,1);
+        Statas(10, 2.0f, 10,1);
         player = GameObject.Find("player");
-        re = sta.get_r();
+        
         
     }
 
@@ -113,10 +82,10 @@ public class fShodow : MonoBehaviour
     void Update()
     {
 
-        sta.shodow_point = transform.position;
-        sta.player_point=player.transform.position;　//自分のベクトル代入
+        shodow_point = transform.position;//自分のベクトル代入
+        player_point =player.transform.position;　//勇者ベクトル代入
 
-        Vector2 dir =sta.player_point -sta.shodow_point; //勇者ベクトル-自分ベクトル代入
+        Vector2 dir =player_point -shodow_point; //勇者ベクトル-自分ベクトル代入
 
         float d = dir.magnitude;
 
@@ -129,23 +98,23 @@ public class fShodow : MonoBehaviour
             //移動処理
             if (Input.GetKey(rightMOVE))
             {
-                transform.Translate(sta.get_shedowWALK() * Time.deltaTime, 0, 0);
+                transform.Translate(shedowWALK * Time.deltaTime, 0, 0);
             }
 
 
             if (Input.GetKey(leftMOVE))
             {
-                transform.Translate(sta.get_shedowWALK()*-1 * Time.deltaTime, 0, 0);
+                transform.Translate(shedowWALK*-1 * Time.deltaTime, 0, 0);
             }
 
             if (Input.GetKey(upMOVE))
             {
-                transform.Translate(0,sta.get_shedowWALK()* Time.deltaTime, 0);
+                transform.Translate(0,shedowWALK* Time.deltaTime, 0);
             }
 
             if (Input.GetKey(downMOVE))
             {
-                transform.Translate(0,sta.get_shedowWALK() * -1 * Time.deltaTime, 0);
+                transform.Translate(0,shedowWALK* -1 * Time.deltaTime, 0);
             }
             //action行動
             if (Input.GetKeyDown(actionBTN))
@@ -161,21 +130,21 @@ public class fShodow : MonoBehaviour
 
             if (Input.GetKey(rightMOVE))
             {
-                obj.transform.Translate(sta.get_shedowWALK() * Time.deltaTime, 0, 0);
+                obj.transform.Translate(shedowWALK * Time.deltaTime, 0, 0);
             }
 
             if (Input.GetKey(leftMOVE))
             {
-                obj.transform.Translate(sta.get_shedowWALK()*-1 * Time.deltaTime, 0, 0);
+                obj.transform.Translate(shedowWALK*-1 * Time.deltaTime, 0, 0);
             }
 
             if (Input.GetKey(downMOVE))
             {
-                obj.transform.Translate(0, sta.get_shedowWALK() * -1 * Time.deltaTime, 0);
+                obj.transform.Translate(0,shedowWALK * -1 * Time.deltaTime, 0);
             }
             if (Input.GetKey(upMOVE))
             {
-               obj.transform.Translate(0, sta.get_shedowWALK() * Time.deltaTime, 0);
+               obj.transform.Translate(0,shedowWALK * Time.deltaTime, 0);
             }
 
             if (Input.GetKey(actionBTN))
@@ -194,7 +163,7 @@ public class fShodow : MonoBehaviour
 
         }
 
-        if (sta.r<d)//範囲外になったら
+        if (r<d)//範囲外になったら
         {
             print("来た");
             HpDame(1);
@@ -207,9 +176,9 @@ public class fShodow : MonoBehaviour
 
     public void HpDame(int Dame) //HPを減少させる処理
     {
-        sta.HP -= Dame;
-        if (sta.HP < 0) Destroy(gameObject);
-        print(sta.HP);
+        HP -= Dame;
+        if (HP < 0) Destroy(gameObject);
+        print(HP);
     }
 
    
