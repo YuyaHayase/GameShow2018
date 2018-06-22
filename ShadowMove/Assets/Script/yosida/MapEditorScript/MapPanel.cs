@@ -13,7 +13,7 @@ public class MapPanel : MonoBehaviour {
     Button prefab; 
 
     [SerializeField, Header("マップチップの画像を入れる")]
-    Sprite[] mapSprite;
+    SpriteRenderer[] mapSprite;
 
     Vector3 mapPos;
 
@@ -22,9 +22,16 @@ public class MapPanel : MonoBehaviour {
 
     Sprite chipSpr;
 
+    Color chipColor;
+
     public Sprite ChipSpr
     {
         get { return chipSpr; }
+    }
+
+    public Color ChipColor
+    {
+        get { return chipColor; }
     }
 
 	// Use this for initialization
@@ -60,13 +67,17 @@ public class MapPanel : MonoBehaviour {
             go.transform.localPosition = mapPos;
 
             //Spriteを張る
-            go.GetComponent<Image>().sprite = mapSprite[i];
+            go.GetComponent<Image>().sprite = mapSprite[i].sprite;
+
+            //Spriteの色
+            go.GetComponent<Image>().color = mapSprite[i].color;
 
             //一時変数
-            Sprite spr = mapSprite[i];
+            Sprite spr = mapSprite[i].sprite;
+            Color color = mapSprite[i].color;
 
             //クリック時の効果をつける
-            go.onClick.AddListener(() => MapButton(spr));
+            go.onClick.AddListener(() => MapButton(spr,color));
 
             //次回の生成位置を変える
             mapPos.y -= yInterval;
@@ -82,9 +93,10 @@ public class MapPanel : MonoBehaviour {
 		
 	}
 
-    public void MapButton(Sprite sprite)
+    public void MapButton(Sprite sprite,Color color)
     {
         //自身のSpriteを入れる
         chipSpr = sprite;
+        chipColor = color;
     }
 }
