@@ -5,7 +5,7 @@ using UnityEngine;
 
 class hEnemy1 : hEnemy {
     // 攻撃しているかどうか
-    static bool isAttacking = false;
+    public bool isAttacking = false;
 
     // 移動速度
     [SerializeField, Header("移動速度")]
@@ -83,7 +83,7 @@ class hEnemy1 : hEnemy {
         }
     }
 
-    private static bool setAttacking
+    public bool setAttacking
     {
         set
         {
@@ -91,7 +91,7 @@ class hEnemy1 : hEnemy {
         }
     }
 
-    public static bool getAttacking
+    public bool getAttacking
     {
         get
         {
