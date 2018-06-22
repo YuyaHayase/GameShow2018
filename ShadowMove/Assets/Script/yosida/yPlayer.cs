@@ -79,7 +79,7 @@ public class yPlayer : MonoBehaviour
 
             transform.position += new Vector3(0, y, 0);
         }
-        else if (flg)
+        else if (!flgFilter)
         {
             //ジャンプ以外の時の自由落下
             time += Time.deltaTime;

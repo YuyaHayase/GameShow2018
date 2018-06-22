@@ -365,7 +365,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1629442873}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.997096
+  m_Size: 0.9945983
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -3965,9 +3965,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefab: {fileID: 1718202840}
   mapSprite:
-  - {fileID: 21300000, guid: a4aa3b47d3eb7df4a84fed4662f1d103, type: 3}
-  - {fileID: 21300002, guid: a4aa3b47d3eb7df4a84fed4662f1d103, type: 3}
-  - {fileID: 21300000, guid: c6c4840bb47514d4fbedc728158e5e1d, type: 3}
+  - {fileID: 212397596806202564, guid: 1b892d7617c2b304289e22fa30c474d1, type: 2}
+  - {fileID: 212398046096586448, guid: a409701002dd584458c1029e87d3c3ed, type: 2}
+  - {fileID: 212276148475156444, guid: d39ecf93ddd561a4c8be65e0499d96e2, type: 2}
+  - {fileID: 212616234149120866, guid: 5d894fe9e0c5ca448ab3f206439a7fc9, type: 2}
   yInterval: 120
 --- !u!1 &874571136
 GameObject:

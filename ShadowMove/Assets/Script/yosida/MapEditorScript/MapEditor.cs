@@ -46,6 +46,9 @@ public class MapEditor : MonoBehaviour {
                     //Spriteを入れる
                     spr.sprite = mapPanel.ChipSpr;
 
+                    //色をいれる
+                    spr.color = mapPanel.ChipColor;
+
                     //大きさの調整
                     spr.transform.localScale = mapScale;
 
@@ -55,6 +58,7 @@ public class MapEditor : MonoBehaviour {
                     //タグを変える
                     spr.tag = "Create";
 
+                    //名前の変更
                     spr.name = "MapTile";
 
                     //画像の位置
@@ -66,9 +70,14 @@ public class MapEditor : MonoBehaviour {
                 }
                 else if(rayHit2D[TagNum(rayHit2D, "Create")].collider.CompareTag("Create"))
                 {
+                    //すでにマップチップが置いてあった場合、Spriteと色だけを変える
                     SpriteRenderer spr = rayHit2D[TagNum(rayHit2D, "Create")].collider.gameObject.GetComponent<SpriteRenderer>();
 
+                    //Spriteをいれる
                     spr.sprite = mapPanel.ChipSpr;
+
+                    //色を入れる
+                    spr.color = mapPanel.ChipColor;
                 }
             }
 
