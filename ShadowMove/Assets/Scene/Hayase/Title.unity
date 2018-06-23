@@ -726,7 +726,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 960192048}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6, y: 4, z: 0}
+  m_LocalPosition: {x: -5.5, y: 4, z: 0}
   m_LocalScale: {x: 0.4, y: 0.4, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -824,7 +824,11 @@ MonoBehaviour:
   ConfigJp: {fileID: 954762259}
   Quit: {fileID: 251831305}
   QuitJp: {fileID: 65288393}
-  accelAdd: 15
+  TitleLogo: {fileID: 960192048}
+  SceneName:
+  - Main
+  - Config
+  yTitleMove: 1
 --- !u!1 &1860615713
 GameObject:
   m_ObjectHideFlags: 0
