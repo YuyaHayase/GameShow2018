@@ -38,6 +38,13 @@ public class hTitleNeedle : MonoBehaviour {
     GameObject TitleLogo;
     GameObject tl;      // タイトルロゴの影
 
+    // 時計の文字盤
+    [SerializeField]
+    GameObject Clock;
+
+    [SerializeField, Header("時計盤の回転速度"), Range(0,1)]
+    float ClockRotateSpeed = 0.025f;
+
     [SerializeField, Header("読み込むシーンの名前")]
     string[] SceneName = new string[] {"Main", "Config" };
 
@@ -45,22 +52,23 @@ public class hTitleNeedle : MonoBehaviour {
     Color[] SkyColor;
 
     // タイトル影、ポジション係数
-    [SerializeField, Header("影のy移動")]
-    float yTitleMove = 0.4f;
+    [SerializeField, Header("影のx移動係数")]
+    float xTitleMove = 1f;
 
     void Start()
     {
         // カメラの背景色の設定
-        SkyColor = new Color[] { IntToNorm(153, 255, 255), IntToNorm(204, 102, 0), IntToNorm(230, 230, 0) };
+        SkyColor = new Color[] { IntToNorm(120, 210, 210), IntToNorm(180, 110, 30), IntToNorm(230, 230, 0) };
 
         // タイトルロゴが入れられてたら
-        if(null != TitleLogo)
+        if (null != TitleLogo)
         {
             tl = Instantiate(TitleLogo) as GameObject;
-            tl.GetComponent<Renderer>().material.color = IntToNorm(130, 130, 130);
+            tl.GetComponent<Renderer>().material.color = IntToNorm(120, 120, 120);
             tl.GetComponent<Renderer>().sortingOrder = -1;
         }
-
+        else
+            Debug.LogWarning("LOGOを入れてください。");
     }
 
     // Update is called once per frame
@@ -86,8 +94,16 @@ public class hTitleNeedle : MonoBehaviour {
             else SceneLoad(SceneName[1]);
         }
 
+        // 時計の文字盤の回転
+        if (null != Clock)
+        {
+            Clock.transform.Rotate(Vector3.forward, ClockRotateSpeed + -( next - t ) * 3);
+        }
+        else
+            Debug.LogWarning("Clockオブジェクトをいれてください");
+
         // タイトルロゴの影の移動
-        tl.transform.position = TitleLogo.transform.position + new Vector3(0.4f - (t * yTitleMove), -0.2f);
+        tl.transform.position = TitleLogo.transform.position + new Vector3(0.4f - (t * xTitleMove), -0.2f);
 
         // 文字の透過
         Rend(GameStart, (1 - t));
