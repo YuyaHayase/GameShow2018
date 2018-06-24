@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4418056476609656}
   - component: {fileID: 212287933449999866}
   - component: {fileID: 95439171436023292}
+  - component: {fileID: 114181353690838068}
   m_Layer: 0
   m_Name: Enemy3
   m_TagString: Untagged
@@ -36,7 +37,7 @@ Transform:
   m_GameObject: {fileID: 1883602624248242}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.8, y: 0.8, z: 1}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -58,6 +59,27 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114181353690838068
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1883602624248242}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5bd56679ab2f4014c984d60fb0a1b39d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  pos: {x: 0, y: 0}
+  CharMoveDirection: 6
+  AnimationSpeed: 1
+  EnemyState: 0
+  NoticePlayerDistance: 10
+  Vpos: {x: 0, y: 0}
+  t: 0
+  addT: 0.025
+  accelAdd: 2
 --- !u!212 &212287933449999866
 SpriteRenderer:
   m_ObjectHideFlags: 1
