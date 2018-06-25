@@ -901,7 +901,7 @@ MonoBehaviour:
   Clock: {fileID: 192999988}
   ClockRotateSpeed: 0.03
   SceneName:
-  - Main
+  - Select
   - Config
   xTitleMove: 1
 --- !u!1 &1860615713

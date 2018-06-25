@@ -6,17 +6,17 @@ using UnityEngine.SceneManagement;
 public class hTitleNeedle : MonoBehaviour {
 
     [SerializeField, Header("needle"), Range(0, 1)]
-    float t = 0;
+    protected float t = 0;
 
     // 回転の最小角度
     float minRotate = -45;
     float maxRotate = 45;
 
     // 加える値
-    float add = 0.5f;
+    protected float add = 0.5f;
 
     // 値を変化する際の目標
-    float next = 0;
+    protected float next = 0;
 
     // 文字オブジェクトの変数
     [SerializeField, Header("文字")]
@@ -46,7 +46,7 @@ public class hTitleNeedle : MonoBehaviour {
     float ClockRotateSpeed = 0.025f;
 
     [SerializeField, Header("読み込むシーンの名前")]
-    string[] SceneName = new string[] {"Main", "Config" };
+    protected string[] SceneName = new string[] {"Main", "Config" };
 
     // 背景色
     Color[] SkyColor;
@@ -121,23 +121,23 @@ public class hTitleNeedle : MonoBehaviour {
 	}
 
     // オブジェクトの透明度を変えます
-   private void Rend(GameObject g, float alpha)
+   protected virtual void Rend(GameObject g, float alpha)
     {
         Color objColor = g.GetComponent<Renderer>().material.color;
         g.GetComponent<Renderer>().material.color = new Color(objColor.r, objColor.g, objColor.b, alpha);
     }
 
     // 255 -> 1 // 0 - 255 を 0 - 1 にします
-    private Color IntToNorm(int r,int  g, int b)
+    public Color IntToNorm(int r,int  g, int b)
     {
         Color rtnColor = new Color(r / 255.0f, g / 255.0f, b / 255.0f);
         return rtnColor;
     }
 
-    private void SceneLoad(string name)
+    public void SceneLoad(string name)
     {
         Debug.Log(name);
-        //SceneManager.LoadScene(name);
+        SceneManager.LoadScene(name);
     }
 }
 
