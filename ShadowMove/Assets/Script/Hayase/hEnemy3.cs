@@ -39,10 +39,6 @@ class hEnemy3 : hEnemy {
     {
         switch (status)
         {
-            // 攻撃
-            case Status.Attack:
-                break;
-
             // 移動
             case Status.Move:
                 if (!goback)
