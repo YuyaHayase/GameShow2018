@@ -58,8 +58,9 @@ public class yBossManager : MonoBehaviour {
         float red = (1.0f - t) * startColor.r + t * endColor.r;
         float green = (1.0f - t) * startColor.g + t * endColor.g;
         float blue = (1.0f - t) * startColor.b + t * endColor.b;
+        float alpha = (1.0f - t) * startColor.a + t * endColor.a;
 
-        mySpr.color = new Color(red, green, blue);
+        mySpr.color = new Color(red, green, blue, alpha);
 
     }
 
