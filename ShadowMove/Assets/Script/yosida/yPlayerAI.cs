@@ -2,145 +2,125 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class yPlayerAI : MonoBehaviour
-{
+public class yPlayerAI : MonoBehaviour {
 
-    //Rayが飛ばされる場所
-    GameObject rayHitPointUnder;//次歩くところにblockがあるかの判定場所
-    GameObject rayHitPointHeight;//次歩くところが高いかどうかの判定場所
+    GameObject rayPointWork;        //次歩く所に歩くかどうか
+    GameObject rayPointJump;        //次歩く所に落とし穴があるかどうか
+    GameObject rayPointStepJump;    //次歩く所に段差があるかどうか
+    GameObject rayPointHeight;　　　//ジャンプできる高さかどうか
 
-    [SerializeField]
-    ContactFilter2D filter2d;
+    Rigidbody2D rigi2D;
 
-    Rigidbody2D rigi2d;
+    BoxCollider2D box2D;
+
+    [SerializeField, Header("足場が当たっているかどうか")]
+    ContactFilter2D filter2D;
 
     [SerializeField, Header("歩くスピード")]
-    float speed = 0.1f;
+    float speed;
 
-    int frame = 0;
+    float workSpeed = 0.0f;
 
-    //座標
-    float yPosSave;
+    [Header("----落下する減速率の調整　高いほど落下する速度が速くなる----")]
+    [SerializeField, Header("ジャンプの減速率")]
+    float jumpAccel = 0.5f;
 
-    //テーブル利用フレーム
-    float[] jumpTable;
+    [SerializeField, Header("ジャンプしたときの落下の減速率")]
+    float jumpFallAccel = 0.3f;
 
-    bool flgContact = false;//接触判定
-    bool flgJump = false;//ジャンプ
-    bool flgWork = false;//歩く
+    [SerializeField, Header("自由落下の減速率")]
+    float freeFallAccel = 0.1f;
 
+    [Header("----ジャンプ処理---")]
+    [SerializeField, Header("初速度")]
+    float Vo = 0.3f;
+
+    [SerializeField, Header("時間")]
+    float time;
+
+    [SerializeField, Header("重力")]
+    float Gravity = 9.8f;
+
+    bool flgJump = false;
+    bool flgFilter = false;
+    bool flg = true;
 
     // Use this for initialization
-    void Start()
-    {
+    void Start () {
+
         //子オブジェクトの取得
-        rayHitPointUnder = transform.Find("RayHitPoint_Under").gameObject;
-        rayHitPointHeight = transform.Find("RayHitPoint_Height").gameObject;
+        rayPointWork = transform.Find("RayPointWork").gameObject;
+        rayPointJump = transform.Find("RayPointJump").gameObject;
+        rayPointStepJump = transform.Find("RayPointStepJump").gameObject;
+        rayPointHeight = transform.Find("RayPointHeight").gameObject;
 
+        rigi2D = GetComponent<Rigidbody2D>();
+        box2D = GetComponent<BoxCollider2D>();
 
-        rigi2d = GetComponent<Rigidbody2D>();
-
-        jumpTable = new float[]
-        {
-            0.1f,0.1f,0.1f,0.1f,
-            0.3f,0.3f,0.3f,0.3f,
-            0.5f,0.5f,0.5f,0.5f,
-            0.3f,0.3f,0.3f,0.3f,
-            0.1f,0.1f,0.1f,0.1f,
-            0, 0, 0, 0,
-            -0.2f,-0.2f,-0.2f,-0.2f,
-            -0.5f,-0.5f,-0.5f,-0.5f,
-            -0.8f,-0.8f,-0.8f,-0.8f
-        };
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        //PlayeroOperation();
+    void Update () {
+        // y = Vot + 1 / 2gt²
+        //y = g * t
 
-        flgContact = rigi2d.IsTouching(filter2d);
-        print(flgContact);
+        //あたり判定
+        flgFilter = rigi2D.IsTouching(filter2D);
 
         //Rayでhitしたオブジェクトを全て取得
-        RaycastHit2D[] hitObjectUnder = Physics2D.RaycastAll(rayHitPointUnder.transform.position, Vector2.zero);
-        RaycastHit2D[] hitObjectHeight = Physics2D.RaycastAll(rayHitPointHeight.transform.position, Vector2.zero);
+        RaycastHit2D[] hitObjectWork = Physics2D.RaycastAll(rayPointWork.transform.position, Vector2.zero);
+        RaycastHit2D[] hitObjectJump = Physics2D.RaycastAll(rayPointJump.transform.position, Vector2.zero);
+        RaycastHit2D[] hitObjectStepJump = Physics2D.RaycastAll(rayPointStepJump.transform.position, Vector2.zero);
+        RaycastHit2D[] hitObjectHeight = Physics2D.RaycastAll(rayPointHeight.transform.position, Vector2.zero);
+
+        print("hitObjectWork = " + hitObjectWork.Length);
+        print("hitObjectJump = " + hitObjectJump.Length);
+        print("hitObjectStepJump = " + hitObjectStepJump.Length);
+        print("hitObjectHeight = " + hitObjectHeight.Length);
+
 
         //Rayで何かを取得したら
-        if (hitObjectUnder.Length > 0)
+        if (hitObjectWork.Length > 0)
         {
             //tagがBlockだった場合歩き続ける
-            if (hitObjectUnder[TagNum(hitObjectUnder, "block")].collider.gameObject.CompareTag("block"))
-                flgWork = true;
+            if (hitObjectWork[TagNum(hitObjectWork, "block")].collider.gameObject.CompareTag("block"))
+                workSpeed = speed;
             else
-                flgWork = false;
+                workSpeed = 0;
+        }
+        else if(hitObjectJump.Length == 0)
+        {
+            flgJump = true;
+            //workSpeed = 0;
         }
         else
         {
-            flgWork = false;
+            workSpeed = 0;
         }
 
-        if (flgContact)
+        if (flgFilter)
         {
-            if (hitObjectHeight.Length > 0)
+            if (hitObjectStepJump.Length > 0 && hitObjectHeight.Length == 0)
             {
                 //一歩先にブロックがあったら止まる
-                if (hitObjectHeight[TagNum(hitObjectHeight, "block")].collider.gameObject.CompareTag("block"))
+                if (hitObjectStepJump[TagNum(hitObjectStepJump, "block")].collider.gameObject.CompareTag("block"))
                     flgJump = true;
                 else
                     flgJump = false;
             }
-        }
-
-        if (flgWork)
-        {
-            transform.position += new Vector3(speed, 0, 0);
-        }
-
-    }
-
-    private void FixedUpdate()
-    {
-        if (flgJump)
-        {
-            rigi2d.AddForce(Vector2.up * 250.0f);
-
-            flgJump = false;
-        }
-
-    }
-
-    //デバッグ用　自身で操作できる
-    private void PlayeroOperation()
-    {
-        if (Input.GetKey(KeyCode.RightArrow))
-        {
-            transform.Translate(speed, 0, 0);
-        }
-        if (Input.GetKey(KeyCode.LeftArrow))
-        {
-            transform.Translate(-speed, 0, 0);
-        }
-
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            flgJump = true;
-            frame = 0;
-        }
-
-        if (flgJump)
-        {
-            transform.position += new Vector3(0, jumpTable[frame], 0);
-            frame++;
-
-            if (frame >= jumpTable.Length)
+            else if(hitObjectStepJump.Length > 0 && hitObjectHeight.Length > 0)
             {
-                flgJump = false;
-                transform.position = new Vector3(transform.position.x, yPosSave, 0);
+                workSpeed = 0;
             }
         }
 
+
+        Jump();
+
+
+        transform.position += new Vector3(workSpeed, 0, 0);
     }
+
     //指定したTagを探して配列番号を返す
     private int TagNum(RaycastHit2D[] hitObject, string tagName)
     {
@@ -153,6 +133,58 @@ public class yPlayerAI : MonoBehaviour
         }
 
         return 0;
+    }
+
+    //ジャンプと自由落下
+    private void Jump()
+    {
+        float y = 0;
+
+        //ジャンプ
+        if (flgJump)
+        {
+            float yMax = y;
+
+            time += Time.deltaTime;
+            y = (Vo * time) - Gravity * (time * time) * jumpAccel;
+
+            if (y < yMax)
+            {
+                y *= jumpFallAccel;
+            }
+
+            transform.position += new Vector3(0, y, 0);
+        }
+        else if (!flgFilter)
+        {
+            //ジャンプ以外の時の自由落下
+            time += Time.deltaTime;
+            y = Gravity * time * freeFallAccel;
+
+            transform.position -= new Vector3(0, y, 0);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D coll)
+    {
+        if (coll.gameObject.CompareTag("block"))
+        {
+            print("触れている");
+            flgJump = false;
+            flg = false;
+            time = 0;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D coll)
+    {
+        if (coll.gameObject.CompareTag("block"))
+        {
+            print("離れた");
+
+            flg = true;
+            time = 0;
+        }
     }
 
 }

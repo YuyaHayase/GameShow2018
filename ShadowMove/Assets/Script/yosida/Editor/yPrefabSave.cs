@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEditor;
 using System.IO;
+#if UNITY_EDITOR
+using UnityEditor;
+
 
 public class yPrefabSave : MonoBehaviour
 {
@@ -60,3 +62,4 @@ public class yPrefabSave : MonoBehaviour
     }
 
 }
+#endif
