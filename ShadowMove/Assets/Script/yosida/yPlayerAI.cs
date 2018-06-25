@@ -5,9 +5,9 @@ using UnityEngine;
 public class yPlayerAI : MonoBehaviour {
 
     GameObject rayPointWork;        //次歩く所に歩くかどうか
-    GameObject rayPointJump;        //次歩く所に落とし穴があるかどうか
     GameObject rayPointStepJump;    //次歩く所に段差があるかどうか
     GameObject rayPointHeight;　　　//ジャンプできる高さかどうか
+    GameObject rayPointNeedle;      //下に針があるかどうか
 
     Rigidbody2D rigi2D;
 
@@ -50,9 +50,9 @@ public class yPlayerAI : MonoBehaviour {
 
         //子オブジェクトの取得
         rayPointWork = transform.Find("RayPointWork").gameObject;
-        rayPointJump = transform.Find("RayPointJump").gameObject;
         rayPointStepJump = transform.Find("RayPointStepJump").gameObject;
         rayPointHeight = transform.Find("RayPointHeight").gameObject;
+        rayPointNeedle = transform.Find("RayPointNeedle").gameObject;
 
         rigi2D = GetComponent<Rigidbody2D>();
         box2D = GetComponent<BoxCollider2D>();
@@ -69,17 +69,18 @@ public class yPlayerAI : MonoBehaviour {
 
         //Rayでhitしたオブジェクトを全て取得
         RaycastHit2D[] hitObjectWork = Physics2D.RaycastAll(rayPointWork.transform.position, Vector2.zero);
-        RaycastHit2D[] hitObjectJump = Physics2D.RaycastAll(rayPointJump.transform.position, Vector2.zero);
         RaycastHit2D[] hitObjectStepJump = Physics2D.RaycastAll(rayPointStepJump.transform.position, Vector2.zero);
         RaycastHit2D[] hitObjectHeight = Physics2D.RaycastAll(rayPointHeight.transform.position, Vector2.zero);
+        RaycastHit2D[] hitObjectNeedle = Physics2D.RaycastAll(rayPointNeedle.transform.position, Vector2.zero);
 
         print("hitObjectWork = " + hitObjectWork.Length);
-        print("hitObjectJump = " + hitObjectJump.Length);
         print("hitObjectStepJump = " + hitObjectStepJump.Length);
         print("hitObjectHeight = " + hitObjectHeight.Length);
-
+        print("hitObjectNeedle = " + hitObjectNeedle.Length);
 
         //Rayで何かを取得したら
+
+        //歩けるかどうか
         if (hitObjectWork.Length > 0)
         {
             //tagがBlockだった場合歩き続ける
@@ -88,33 +89,55 @@ public class yPlayerAI : MonoBehaviour {
             else
                 workSpeed = 0;
         }
-        else if(hitObjectJump.Length == 0)
+        else if(hitObjectWork.Length == 0)
         {
             flgJump = true;
-            //workSpeed = 0;
-        }
-        else
-        {
-            workSpeed = 0;
         }
 
+
+        //ジャンプするかどうか
         if (flgFilter)
         {
             if (hitObjectStepJump.Length > 0 && hitObjectHeight.Length == 0)
             {
-                //一歩先にブロックがあったら止まる
-                if (hitObjectStepJump[TagNum(hitObjectStepJump, "block")].collider.gameObject.CompareTag("block"))
+                //一歩先にブロックか針があったらジャンプ
+                if (hitObjectStepJump[TagNum(hitObjectStepJump, "block")].collider.gameObject.CompareTag("block")
+                 || hitObjectStepJump[TagNum(hitObjectStepJump, "Needle")].collider.gameObject.CompareTag("Needle"))
+                {
                     flgJump = true;
+                    workSpeed = speed;
+                }
                 else
                     flgJump = false;
             }
             else if(hitObjectStepJump.Length > 0 && hitObjectHeight.Length > 0)
             {
+                //壁が高かったら
+                flgJump = false;
                 workSpeed = 0;
             }
         }
 
+        //針があったら止まる
+        if (hitObjectNeedle.Length > 0)
+        {
+            if (hitObjectNeedle[TagNum(hitObjectNeedle, "Needle")].collider.gameObject.CompareTag("Needle"))
+            {
+                if (hitObjectWork.Length > 0)
+                {
+                    workSpeed = speed;
+                    flgJump = false;
+                }
+                else
+                {
+                    workSpeed = 0;
+                    flgJump = false;
+                }
+            }
+        }
 
+
+        //ジャンプの挙動
         Jump();
 
 
