@@ -11,21 +11,26 @@ public class yBoss : MonoBehaviour {
     GameObject outPrefab;
     Animator anime;
 
+    Vector3 playerPos = new Vector3();
+
+    [Header("０…体当たり １…吐き出し攻撃 ２…ジャンプ攻撃")]
     [SerializeField,Header("攻撃パターン")]
     List<int> pattern = new List<int>();
     List<int> patternSave = new List<int>();  //攻撃パターンの保存
 
     [SerializeField, Header("吐き出す攻撃回数")]
-    int outNum = 3;
+    int notOutNum = 3;
+    int outNum = 0;
     int order = 1;          //攻撃の順番
     int r;                  //ランダムでもらった値
 
     [SerializeField,Header("クールタイム")]
-    float nonCoolTime;
-    float coolTime;
+    float notCoolTime;
+    float coolTime = 0.0f;
 
     [SerializeField, Header("吐き出す攻撃のクールタイム")]
-    float nonOutTime = 2.0f;
+    float notOutTime = 2.0f;
+    float outTime = 0.0f;
 
 
     [SerializeField,Header("アニメーションの速度")]
@@ -35,11 +40,14 @@ public class yBoss : MonoBehaviour {
     float speed = 0.1f;
 
     [SerializeField, Header("動けるx軸の最小値")]
-    float min;
+    float xMin;
     [SerializeField, Header("動けるx軸の最大値")]
-    float max;
+    float xMax;
+    [SerializeField, Header("ジャンプするときのy軸の最大座標")]
+    float yMax;
 
     bool flgRand = true;
+    bool flgJumpStop = false;
 
 	// Use this for initialization
 	void Start () {
@@ -59,7 +67,7 @@ public class yBoss : MonoBehaviour {
 	void Update () {
         coolTime += Time.deltaTime;
 
-        if(coolTime >= nonCoolTime)
+        if(coolTime >= notCoolTime)
         {
             //攻撃パターンが無くなったらを入れなおす
             if(pattern.Count == 0)
@@ -82,6 +90,12 @@ public class yBoss : MonoBehaviour {
                     break;
                 case 1://吐き出し攻撃
                     OutAttack();
+                    break;
+                case 2://ジャンプ攻撃
+                    JumpAttack();
+                    break;
+                default://次の攻撃へ
+                    AttackEnd();
                     break;
             }
 
@@ -109,8 +123,17 @@ public class yBoss : MonoBehaviour {
                 break;
             case 2://画面端まで移動する
                 transform.position += new Vector3(speed, 0, 0);
-                if (transform.position.x > max || transform.position.x < min)
-                    order = 3;
+                //右に移動の時
+                if(speed > 0)
+                {
+                    if (transform.position.x > xMax)
+                        order = 3;
+                }
+                else//左に移動の時
+                {
+                    if (transform.position.x < xMin)
+                        order = 3;
+                }
                 break;
             case 3://攻撃終わり
                 animeSpeed = 1.0f;
@@ -120,14 +143,54 @@ public class yBoss : MonoBehaviour {
         
     }
 
-    //口から何か出す
+    //口から吐瀉物出す
     private void OutAttack()
     {
-        for (int i = 0; i < outNum; i++)
+        outTime += Time.deltaTime;
+
+        if (outTime >= notOutTime)
         {
             GameObject go = Instantiate(outPrefab, ChildOutPos.transform.position, Quaternion.identity);
+            outTime = 0.0f;
+            outNum++;
         }
-        AttackEnd();
+
+        if (outNum >= notOutNum)
+        {
+            outNum = 0;
+            AttackEnd();
+        }
+    }
+
+    //ジャンプ攻撃
+    private void JumpAttack()
+    {
+        switch (order)
+        {
+            case 1://Playerの座標を取得
+                playerPos = player.transform.position;
+                animeSpeed = 0;
+                order = 2;
+                break;
+            case 2://ジャンプ
+                transform.position += new Vector3(0, 0.1f, 0);
+                if (transform.position.y >= yMax)
+                {
+                    transform.position = new Vector3(playerPos.x, yMax, 0);
+                    flgJumpStop = false;
+                    order = 3;
+                }
+                break;
+            case 3://降りてくる
+                transform.position += new Vector3(0, -0.1f, 0);
+                if (flgJumpStop)
+                {
+                    animeSpeed = 1.0f;
+                    AttackEnd();
+                    flgJumpStop = false;
+                }
+                break;
+        }
     }
 
     //攻撃が終わった時に呼ぶと次の攻撃をすることができる
@@ -146,12 +209,20 @@ public class yBoss : MonoBehaviour {
         order = 1;
     }
 
+    private void OnTriggerEnter2D(Collider2D coll)
+    {
+        if (coll.gameObject.CompareTag("block"))
+        {
+            flgJumpStop = true;
+        }
+    }
+
     /*
      ボスの攻撃パターン
-     * ふみつける  
+    // * ふみつける  
     // * たいあたり
-    //* 口から何か出す
-     * ジャンプ
+    // * 口から何か出す
+    // * ジャンプ
      * 仲間呼び
      */
 }
