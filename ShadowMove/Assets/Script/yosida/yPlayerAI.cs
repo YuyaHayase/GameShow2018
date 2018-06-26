@@ -197,6 +197,11 @@ public class yPlayerAI : MonoBehaviour {
             flg = false;
             time = 0;
         }
+
+        if (coll.gameObject.CompareTag("Needle"))
+        {
+            print("死亡");
+        }
     }
 
     private void OnTriggerExit2D(Collider2D coll)
