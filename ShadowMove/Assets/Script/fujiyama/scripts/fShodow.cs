@@ -33,7 +33,7 @@ public class fShodow : MonoBehaviour
 
        
 
-        public void Statas(int _HP,float _shedowwalk,int _r, int _Dame)
+        public void Statas(int _HP,float _shedowwalk,float _r, int _Dame)
         {
             HP = _HP;
             shedowWALK = _shedowwalk;
@@ -72,7 +72,7 @@ public class fShodow : MonoBehaviour
 
     void Start()
     {
-        Statas(10, 2.0f, 10,1);
+        Statas(10, 2.0f, r,1);
         player = GameObject.Find("player");
         
         
