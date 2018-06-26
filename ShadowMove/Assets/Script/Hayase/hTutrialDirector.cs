@@ -4,9 +4,15 @@ using UnityEngine;
 
 public class hTutrialDirector : MonoBehaviour {
 
-    [SerializeField, Header("プレイヤー")]
+    [SerializeField, Multiline(5)]
+    string _txt = "プレイヤーを止める場所です";
+
+
+    [SerializeField, Header("マップタイル")]
     GameObject[] Obj = new GameObject[5];
 
+    [SerializeField]
+    float PlayerSpeed = 0.1f;
 
 
 	// Use this for initialization
@@ -16,6 +22,9 @@ public class hTutrialDirector : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            Obj[0].tag = "block";
+        }
 	}
 }
