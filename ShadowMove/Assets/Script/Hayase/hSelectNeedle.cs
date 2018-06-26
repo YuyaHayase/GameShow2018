@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class hTutrialNeedle : hTitleNeedle {
+public class hSelectNeedle : hTitleNeedle {
 
     // 文字オブジェクトの変数
     [SerializeField, Header("文字")]
@@ -21,6 +21,9 @@ public class hTutrialNeedle : hTitleNeedle {
         SelectedColor = base.IntToNorm(255, 255, 0);
         t = 0;
         add = 1;
+
+        if (null == Yes) Yes = GameObject.Find("はい");
+        if (null == No) No = GameObject.Find("いいえ");
     }
 
     // Update is called once per frame

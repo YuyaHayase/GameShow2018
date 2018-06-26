@@ -20,6 +20,9 @@ class hEnemy3 : hEnemy {
     // 一時停止カウント
     float cnt = 0;
 
+    // 動き出すまでのカウント
+    float awakeTime = 0;
+
     //　帰るか
     bool goback = false;
 
@@ -69,8 +72,13 @@ class hEnemy3 : hEnemy {
             case Status.Wait:
                 if ( player != null && (player.transform.position - transform.position).magnitude < NoticePlayerDistance)
                 {
-                    EnemyState = Status.Move;
-                    Vpos = transform.position;
+                    awakeTime += addT;
+                    if(awakeTime > 5)
+                    {
+                        awakeTime = 0;
+                        EnemyState = Status.Move;
+                        Vpos = transform.position;
+                    }
                 }
                 break;
         }
