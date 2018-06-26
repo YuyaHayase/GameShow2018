@@ -13,7 +13,6 @@ public class hTutrialNeedle : hTitleNeedle {
     Color SelectedColor;
     [SerializeField]
     float alpha = 1;
-    bool isTutrial = false;
     bool ShadowPut = false;
     GameObject TextShadow;
 
@@ -44,7 +43,7 @@ public class hTutrialNeedle : hTitleNeedle {
         if (Input.GetKeyUp(KeyCode.Return))
         {
             if (t >= 0.5f) base.SceneLoad(SceneName[1]);
-            else isTutrial = true;
+            else base.SceneLoad(SceneName[0]);
         }
 
         // アニメーション

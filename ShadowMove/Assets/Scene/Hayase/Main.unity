@@ -124,8 +124,8 @@ GameObject:
   - component: {fileID: 121441236}
   - component: {fileID: 121441235}
   - component: {fileID: 121441234}
-  - component: {fileID: 121441239}
   - component: {fileID: 121441238}
+  - component: {fileID: 121441239}
   - component: {fileID: 121441240}
   m_Layer: 0
   m_Name: Main Camera
@@ -283,6 +283,11 @@ Prefab:
       propertyPath: m_Name
       value: player
       objectReference: {fileID: 0}
+    - target: {fileID: 212933840896160000, guid: 9bfda325a965c634a8979a564b8c78aa,
+        type: 2}
+      propertyPath: m_MaskInteraction
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9bfda325a965c634a8979a564b8c78aa, type: 2}
   m_IsPrefabParent: 0
@@ -334,6 +339,11 @@ Prefab:
         type: 2}
       propertyPath: m_SortingOrder
       value: -10
+      objectReference: {fileID: 0}
+    - target: {fileID: 212287933449999866, guid: 3e21ebbdedaf5f1458b777559cb46f55,
+        type: 2}
+      propertyPath: m_MaskInteraction
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3e21ebbdedaf5f1458b777559cb46f55, type: 2}

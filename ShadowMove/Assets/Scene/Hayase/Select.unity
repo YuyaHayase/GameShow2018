@@ -383,7 +383,7 @@ MonoBehaviour:
   Clock: {fileID: 0}
   ClockRotateSpeed: 0.025
   SceneName:
-  - tutrialstart
+  - Tutrial
   - Main
   xTitleMove: 1
   Yes: {fileID: 1827827603}
