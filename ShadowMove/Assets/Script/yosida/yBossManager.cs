@@ -24,8 +24,8 @@ public class yBossManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         //自身の画像や色を取得
-        mySpr = GetComponent<SpriteRenderer>();
-        startColor = GetComponent<SpriteRenderer>().color;
+        mySpr = transform.parent.GetComponent<SpriteRenderer>();
+        startColor = mySpr.color;
 
         //最大HPを入れる
         maxHP = hp;
@@ -77,5 +77,13 @@ public class yBossManager : MonoBehaviour {
 
         //自身のHPを0～1の範囲で(線形補完をするため)
         remaining = 1.0f - (hp / maxHP);
+    }
+
+    private void OnTriggerEnter2D(Collider2D coll)
+    {
+        if (coll.gameObject.CompareTag("block"))
+        {
+            BossDamage(10);
+        }
     }
 }

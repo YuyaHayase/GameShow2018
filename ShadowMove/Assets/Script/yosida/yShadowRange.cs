@@ -4,12 +4,16 @@ using UnityEngine;
 
 public class yShadowRange : MonoBehaviour {
 
+    Vector3 scaleSize;
+
     fShodow _fShodow;
 
 	// Use this for initialization
 	void Start () {
         //スクリプトを取得
         _fShodow = GameObject.Find("shodow").GetComponent<fShodow>();
+
+        scaleSize = transform.localScale;
 
         //遅延コルーチン
         StartCoroutine("Delay");
@@ -27,7 +31,7 @@ public class yShadowRange : MonoBehaviour {
         yield return new WaitForEndOfFrame();
 
         //影が動ける範囲を取得してこの画像の大きさを調整する
-        transform.localScale = new Vector3(2, 2, 0) * _fShodow.r;
+        transform.localScale = scaleSize* _fShodow.r;
 
     }
 }
