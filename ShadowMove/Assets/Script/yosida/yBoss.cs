@@ -113,13 +113,17 @@ public class yBoss : MonoBehaviour {
         switch (order)
         {
             case 1://左右のどっちに移動するか
-                animeSpeed = 15.0f;
-                //右に移動
-                if (player.transform.position.x > transform.position.x)
-                    speed = Mathf.Abs(speed);
-                else//左に移動
-                    speed = -speed;
-                order = 2;
+                animeSpeed += 0.1f;
+                if (animeSpeed >= 15.0f)
+                {
+                    animeSpeed = 15.0f;
+                    //右に移動
+                    if (player.transform.position.x > transform.position.x)
+                        speed = Mathf.Abs(speed);
+                    else//左に移動
+                        speed = -speed;
+                    order = 2;
+                }
                 break;
             case 2://画面端まで移動する
                 transform.position += new Vector3(speed, 0, 0);
@@ -150,7 +154,7 @@ public class yBoss : MonoBehaviour {
 
         if (outTime >= notOutTime)
         {
-            GameObject go = Instantiate(outPrefab, ChildOutPos.transform.position, Quaternion.identity);
+            Instantiate(outPrefab, ChildOutPos.transform.position, Quaternion.identity);
             outTime = 0.0f;
             outNum++;
         }

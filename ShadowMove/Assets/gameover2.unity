@@ -249,50 +249,8 @@ Transform:
   m_LocalScale: {x: 3.3953366, y: 4.2246633, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &1737632459
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4895675310926076, guid: 034a7339ab4a51643a62ccd98be86726, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0.08
-      objectReference: {fileID: 0}
-    - target: {fileID: 4895675310926076, guid: 034a7339ab4a51643a62ccd98be86726, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0.11
-      objectReference: {fileID: 0}
-    - target: {fileID: 4895675310926076, guid: 034a7339ab4a51643a62ccd98be86726, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4895675310926076, guid: 034a7339ab4a51643a62ccd98be86726, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4895675310926076, guid: 034a7339ab4a51643a62ccd98be86726, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4895675310926076, guid: 034a7339ab4a51643a62ccd98be86726, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4895675310926076, guid: 034a7339ab4a51643a62ccd98be86726, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4895675310926076, guid: 034a7339ab4a51643a62ccd98be86726, type: 2}
-      propertyPath: m_RootOrder
-      value: 2
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 034a7339ab4a51643a62ccd98be86726, type: 2}
-  m_IsPrefabParent: 0
 --- !u!1 &1886912141
 GameObject:
   m_ObjectHideFlags: 0
@@ -364,7 +322,7 @@ Transform:
   m_LocalScale: {x: 3.5102065, y: 4.3507457, z: 4.1511717}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2105868191
 GameObject:
@@ -396,14 +354,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7205baa84b96ab64c8716629f00318ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  color1: {r: 0.9852941, g: 0.7882353, b: 0.49264705, a: 1}
-  color2: {r: 0.11159169, g: 0.81000173, b: 0.9485294, a: 1}
-  color3: {r: 1, g: 0.76896554, b: 0.014705896, a: 1}
-  color4: {r: 0, g: 0, b: 0, a: 1}
-  plus: 0.1
-  red: 1
-  green: 1
-  blue: 1
 --- !u!81 &2105868193
 AudioListener:
   m_ObjectHideFlags: 0

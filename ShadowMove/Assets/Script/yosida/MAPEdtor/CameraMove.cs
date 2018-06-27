@@ -29,14 +29,14 @@ public class CameraMove : MonoBehaviour {
         if (Input.GetKey(KeyCode.LeftControl))
         {
             //右に動く
-            if (Input.GetAxis("Mouse ScrollWheel") > 0)
+            if (Input.GetAxis("Mouse ScrollWheel") < 0)
             {
                 Camera.main.transform.position += new Vector3(speed, 0, 0);
                 GridMoveX(speed);
             }
 
             //左に動く
-            if (Input.GetAxis("Mouse ScrollWheel") < 0)
+            if (Input.GetAxis("Mouse ScrollWheel") > 0)
             {
                 Camera.main.transform.position -= new Vector3(speed, 0, 0);
                 GridMoveX(-speed);
