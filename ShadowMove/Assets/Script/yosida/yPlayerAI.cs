@@ -45,9 +45,10 @@ public class yPlayerAI : MonoBehaviour {
     bool flgFilter = false;
     bool flg = true;
 
-    public float Work
+    public float Speed
     {
         set { speed = value; }
+        get { return speed; }
     }
 
     // Use this for initialization
@@ -74,9 +75,14 @@ public class yPlayerAI : MonoBehaviour {
         flgFilter = rigi2D.IsTouching(filter2D);
 
         //Rayでhitしたオブジェクトを全て取得
+
+        //歩けるかどうか
         RaycastHit2D[] hitObjectWork = Physics2D.RaycastAll(rayPointWork.transform.position, Vector2.zero);
+        //段差をジャンプ
         RaycastHit2D[] hitObjectStepJump = Physics2D.RaycastAll(rayPointStepJump.transform.position, Vector2.zero);
+        //越えられない壁
         RaycastHit2D[] hitObjectHeight = Physics2D.RaycastAll(rayPointHeight.transform.position, Vector2.zero);
+        //針あるかどうか
         RaycastHit2D[] hitObjectNeedle = Physics2D.RaycastAll(rayPointNeedle.transform.position, Vector2.zero);
 
         //print("hitObjectWork = " + hitObjectWork.Length);
