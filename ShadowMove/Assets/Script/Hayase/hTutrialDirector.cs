@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class hTutrialDirector : MonoBehaviour {
 
@@ -16,6 +17,10 @@ public class hTutrialDirector : MonoBehaviour {
 
     [SerializeField]
     Text DisplayText;
+
+    [SerializeField, Header("乗り移るオブジェクト")]
+    GameObject hackObj;
+    Vector3 hackObjFinalPos = new Vector3(106, -3);
 
 
     [SerializeField, Header("プレイヤーの移動速度")]
@@ -52,11 +57,17 @@ public class hTutrialDirector : MonoBehaviour {
 
         if (null != DisplayText)
             StartCoroutine("Disp");
+
+        if (null == hackObj)
+            Debug.Log("オブジェクトいれて");
     }
 
     // Update is called once per frame
     void Update () {
-        if(!isPlay)
+        if(Input.GetKeyDown(KeyCode.Q))
+            hackObj.transform.position = hackObjFinalPos;
+
+        if (!isPlay)
             cnt += 0.1f;
 
         if (cnt > 30 && isNext)
@@ -75,9 +86,19 @@ public class hTutrialDirector : MonoBehaviour {
             case 3:
                 ChangeSelect(1);
                 break;
-            case 5:
+            case 6:
                 isPlay = true;
+                if ((hackObj.transform.position - hackObjFinalPos).magnitude < 1)
+                {
+                    hackObj.transform.position = hackObjFinalPos;
+                    isPlay = false;
+                    ChangeSelect(2);
+                }
                 break;
+            case 10:
+                SceneManager.LoadScene("Main");
+                break;
+
         }
 
         float nowPos = player.transform.position.x;
