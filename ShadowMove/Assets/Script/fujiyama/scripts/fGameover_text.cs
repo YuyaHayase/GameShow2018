@@ -48,7 +48,7 @@ public class fGameover_text : MonoBehaviour {
     void Start ()
     {
         _text = GameObject.Find("Text");
-        _image = GameObject.Find("Image");
+        
 	}
 	
 	// Update is called once per frame
@@ -63,15 +63,13 @@ public class fGameover_text : MonoBehaviour {
         }
        
 
-        _image.GetComponent<Image>().color = new Color(r, g, b, _alpha);
+
 
 
         if (conteflg == false)
         {
             _alpha += plus; //alpha値の加算
-            r -= plus;
-            g -= plus;
-            b -= plus;
+           
         }
        
             if (time > 0)
@@ -110,15 +108,16 @@ public class fGameover_text : MonoBehaviour {
 
         print(_alpha);
 
-        r += plus;
-        g += plus;
-        b += plus;
+      
+
+       
 
         messege = "Retry OK";
-        
 
-        
-        if (_alpha<=0.0f)
+        _text.GetComponent<Text>().text = messege;
+
+
+        if (_alpha<0.0f)
         {
             SceneManager.LoadScene(main_scene);
         }
@@ -132,11 +131,13 @@ public class fGameover_text : MonoBehaviour {
         _text.GetComponent<Text>().color = new Color(1,0,0,1);
         messege = "Game Over";
 
-      
+        _text.GetComponent<Text>().text = messege;
+
+
         t +=Time.deltaTime;
         print(t);
 
-        if(t>2.0f)
+        if(t>3.0f)
         {
             SceneManager.LoadScene(title_scene);
         }

@@ -265,6 +265,11 @@ Prefab:
       propertyPath: m_Color.b
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 212643779343302792, guid: f73afeea043142d41a7b3eb1130b7738,
+        type: 2}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f73afeea043142d41a7b3eb1130b7738, type: 2}
   m_IsPrefabParent: 0
@@ -427,7 +432,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   outPrefab: {fileID: 1985188691377630, guid: 0242167e1af47e54492fa4957ad7819a, type: 2}
-  pattern: 000000000100000002000000000000000000000002000000
+  pattern: 010000000100000000000000000000000000000001000000
   notOutNum: 2
   notCoolTime: 1
   notOutTime: 1

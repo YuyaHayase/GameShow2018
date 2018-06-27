@@ -45,6 +45,11 @@ public class yPlayerAI : MonoBehaviour {
     bool flgFilter = false;
     bool flg = true;
 
+    public float Work
+    {
+        set { speed = value; }
+    }
+
     // Use this for initialization
     void Start () {
 
@@ -54,6 +59,7 @@ public class yPlayerAI : MonoBehaviour {
         rayPointHeight = transform.Find("RayPointHeight").gameObject;
         rayPointNeedle = transform.Find("RayPointNeedle").gameObject;
 
+        //コンポーネント取得
         rigi2D = GetComponent<Rigidbody2D>();
         box2D = GetComponent<BoxCollider2D>();
 
@@ -73,10 +79,10 @@ public class yPlayerAI : MonoBehaviour {
         RaycastHit2D[] hitObjectHeight = Physics2D.RaycastAll(rayPointHeight.transform.position, Vector2.zero);
         RaycastHit2D[] hitObjectNeedle = Physics2D.RaycastAll(rayPointNeedle.transform.position, Vector2.zero);
 
-        print("hitObjectWork = " + hitObjectWork.Length);
-        print("hitObjectStepJump = " + hitObjectStepJump.Length);
-        print("hitObjectHeight = " + hitObjectHeight.Length);
-        print("hitObjectNeedle = " + hitObjectNeedle.Length);
+        //print("hitObjectWork = " + hitObjectWork.Length);
+        //print("hitObjectStepJump = " + hitObjectStepJump.Length);
+        //print("hitObjectHeight = " + hitObjectHeight.Length);
+        //print("hitObjectNeedle = " + hitObjectNeedle.Length);
 
         //Rayで何かを取得したら
 
@@ -192,7 +198,7 @@ public class yPlayerAI : MonoBehaviour {
     {
         if (coll.gameObject.CompareTag("block"))
         {
-            print("触れている");
+            //print("触れている");
             flgJump = false;
             flg = false;
             time = 0;
@@ -208,7 +214,7 @@ public class yPlayerAI : MonoBehaviour {
     {
         if (coll.gameObject.CompareTag("block"))
         {
-            print("離れた");
+            //print("離れた");
 
             flg = true;
             time = 0;

@@ -26,8 +26,6 @@ public class yShadowRange : MonoBehaviour {
         //1フレーム遅延させる
         yield return new WaitForEndOfFrame();
 
-        
-
         //影が動ける範囲を取得してこの画像の大きさを調整する
         transform.localScale = new Vector3(2, 2, 0) * _fShodow.r;
 
