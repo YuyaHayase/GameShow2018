@@ -24,6 +24,9 @@ public class fShodow : MonoBehaviour
         [SerializeField, Header("HP")]
         public int HP;
 
+
+        [SerializeField, Header("HP設定")]
+        public int _HP;
         [SerializeField, Header("ダメージ量")]
         public int Dame;
 
@@ -68,11 +71,13 @@ public class fShodow : MonoBehaviour
     public GameObject obj;
 
     int a;
-    
+
+    [SerializeField, Header("乗り移るオブジェクト名")]
+    public string obj_str;    
 
     void Start()
     {
-        Statas(10, 2.0f, r,1);
+        Statas(_HP, 2.0f, r,1);
         player = GameObject.Find("player");
         
         
@@ -158,7 +163,9 @@ public class fShodow : MonoBehaviour
             {
 
                 walkflg = true;
-                gameObject.SetActive(true);
+                transform.position = new Vector3(obj.transform.position.x + 5.0f, transform.position.y, transform.position.z);
+
+                GetComponent<Renderer>().material.color = new Color(0, 0, 0, 1);
             }
 
         }
@@ -187,6 +194,12 @@ public class fShodow : MonoBehaviour
     void OnTriggerEnter2D(Collider2D other)
     {
         obj = other.gameObject;
-        walkflg = false;
+        if(obj.name==obj_str)
+        {
+            walkflg = false;
+
+            GetComponent<Renderer>().material.color = new Color(0, 0, 0, 0);
+        }
+        
     }
 }
