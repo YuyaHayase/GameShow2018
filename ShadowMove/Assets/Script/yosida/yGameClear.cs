@@ -174,7 +174,7 @@ public class yGameClear : MonoBehaviour {
             _yEndingFade.FlgFadeOut = true;
 
             //Playerが歩くのをやめる
-            _yPlayerAI.Work = 0.0f;
+            _yPlayerAI.Speed = 0.0f;
         }
     }
 
