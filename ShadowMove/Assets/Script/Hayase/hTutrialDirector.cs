@@ -46,7 +46,13 @@ public class hTutrialDirector : MonoBehaviour {
     // プレイヤーが操作するか
     bool isPlay = false;
 
+    // チュートリアルを始めるか
     bool TutStart = false;
+
+    // なんフレーム経ったら始めるか
+    [SerializeField, Header("なんフレーム経ったら始めるか")]
+    float Tut_cnt = 60;
+
     private void Start()
     {
         for (int i = 0; i < Obj.Length - 1; i++)
@@ -75,7 +81,7 @@ public class hTutrialDirector : MonoBehaviour {
             TutStart = true;
         if (TutStart)
         {
-            if (cnt > 30 && isNext)
+            if (cnt > 35 && isNext)
             {
                 cnt = 0;
                 isNext = false;
