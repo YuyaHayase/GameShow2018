@@ -54,11 +54,10 @@ public class yGameClear : MonoBehaviour {
 
     [SerializeField,Header("どれだけ出したいか")]
     int[] displayNum;
-    int displaySum;
     int num = 0;    //表示した数　添え字
     int disNum = 0; //desplayNumの添え字
 
-    float red, green, blue, alpha = 1.0f;
+    float alpha = 1.0f;
     [SerializeField,Header("")]
     float t;
     [SerializeField]
@@ -66,8 +65,14 @@ public class yGameClear : MonoBehaviour {
     [SerializeField, Header("")]
     float alphaAccele = 0.5f;
 
+    yEndingFade _yEndingFade;
+    yPlayerAI _yPlayerAI;
+
 	// Use this for initialization
 	void Start () {
+
+        _yEndingFade = GameObject.Find("Fade").GetComponent<yEndingFade>();
+        _yPlayerAI = GameObject.Find("player").GetComponent<yPlayerAI>();
 
         int n = staffRoll.Count;
 
@@ -118,8 +123,6 @@ public class yGameClear : MonoBehaviour {
 
             text[i].enabled = false;
             textShodow[i].enabled = false;
-
-            displaySum++;
         }
 
         textPrefab.enabled = false;
@@ -137,7 +140,6 @@ public class yGameClear : MonoBehaviour {
         {
             for (int i = num; i < displayNum[disNum] + num; i++)
             {
-
                 text[i].enabled = true;
                 textShodow[i].enabled = true;
 
@@ -159,8 +161,6 @@ public class yGameClear : MonoBehaviour {
                     {
                         alpha = 1.0f;
                         t = 0;
-                        Destroy(text[i].gameObject);
-                        Destroy(textShodow[i].gameObject);
                         num += displayNum[disNum];
                         disNum++;
                         break;
@@ -168,22 +168,17 @@ public class yGameClear : MonoBehaviour {
                 }
             }
         }
+        else
+        {
+            //フェードアウトをする
+            _yEndingFade.FlgFadeOut = true;
+
+            //Playerが歩くのをやめる
+            _yPlayerAI.Work = 0.0f;
+        }
     }
 
-    private IEnumerator LinearInterpoltion()
-    {
-
-        yield break;
-    }
-
-    //線形補完
-    //private void LinearInterpoltionColor(Color RGB1,Color RGB2)
-    //{
-    //    red = (1.0f - t) * RGB1.r + t * RGB2.r;
-    //    green = (1.0f - t) * RGB1.g + t * RGB2.g;
-    //    blue = (1.0f - t) * RGB1.b + t * RGB2.b;
-    //}
-
+    //横幅の長さを広くする線形補完
     private Vector2 LinearInterpoltion(Vector2 myWidth, Vector2 changeWidth)
     {
         float width = (1.0f - t) * myWidth.x + t * changeWidth.x;
