@@ -53,7 +53,7 @@ abstract class hEnemy : MonoBehaviour {
 
     // 抽象化キャラクターのステータス
     public abstract void CharacterStatus(Status status);
-    
+
     // 移動
     public Vector2 CharacterMove(CharacterMoveDirection cmd)
     {

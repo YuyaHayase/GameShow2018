@@ -4,4 +4,10 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scene/Hayase/Title.unity
+    guid: d8566603af388f34da00db892189d072
+  - enabled: 1
+    path: Assets/Scene/Hayase/Tutrual.unity
+    guid: c22ed812f9683f742b5389b59dad79a1
