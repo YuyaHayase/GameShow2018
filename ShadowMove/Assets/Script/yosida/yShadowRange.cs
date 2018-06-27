@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class yShadowRange : MonoBehaviour {
 
-    Vector3 scaleSize;
+
+    bool flgRadius = false; //tureになったらscaleの伸びが止まる
+    bool flgRange = false;  //影が動ける最大範囲まで延びたらTrue
 
     fShodow _fShodow;
 
@@ -13,7 +15,6 @@ public class yShadowRange : MonoBehaviour {
         //スクリプトを取得
         _fShodow = GameObject.Find("shodow").GetComponent<fShodow>();
 
-        scaleSize = transform.localScale;
 
         //遅延コルーチン
         StartCoroutine("Delay");
@@ -27,11 +28,55 @@ public class yShadowRange : MonoBehaviour {
     //遅延処理(取得したいものがStartで設定しているから取れない可能性があるため)
     IEnumerator Delay()
     {
-        //1フレーム遅延させる
+        //遅延させる
         yield return new WaitForEndOfFrame();
 
-        //影が動ける範囲を取得してこの画像の大きさを調整する
-        transform.localScale = scaleSize* _fShodow.r;
+        //オブジェクトの取得
+        GameObject radius = GameObject.Find("radiusPos");
+        GameObject player = GameObject.Find("player");
 
+        //影の範囲の大きさの最大値の場所
+        Vector3 radiusPos = radius.transform.position;
+
+        //半径rの位置まで移動
+        while (true)
+        {
+            Vector2 dir = player.transform.position - radiusPos;
+
+            if (dir.magnitude >= _fShodow.r)
+                break;
+            else
+                radiusPos += new Vector3(0.1f, 0.1f, 0);
+        }
+        radius.transform.position = radiusPos;
+        yield return new WaitForEndOfFrame();
+
+        flgRange = true;
+
+        //影が動ける範囲を取得してこの画像の大きさを調整する
+        while (true)
+        {
+            transform.localScale += new Vector3(0.01f, 0.01f, 0);
+
+            if (flgRadius)
+                break;
+
+            yield return new WaitForEndOfFrame();
+        }
+        Destroy(radius.gameObject);
+        yield break;
+    }
+
+
+    private void OnTriggerEnter2D(Collider2D coll)
+    {
+        if (coll.gameObject.CompareTag("RadiusPos"))
+        {
+            //範囲に入ったら
+            if (flgRange)
+            {
+                flgRadius = true;
+            }
+        }
     }
 }
