@@ -8,7 +8,10 @@ public class fShodow : MonoBehaviour
     
     
         [SerializeField, Header("移動スピード")]
-        private float shedowWALK;
+        public float shedowWALK;
+        
+        [SerializeField,Header("移動スピード設定するやつ")]
+        public float waik;
     
         public GameObject objct;
 
@@ -33,6 +36,8 @@ public class fShodow : MonoBehaviour
         private Vector2 shodow_point;//　影のベクトル
 
         private Vector2 player_point;//  勇者のベクトル 
+
+    hBlur _hBlur;
 
        
 
@@ -77,11 +82,12 @@ public class fShodow : MonoBehaviour
 
     void Start()
     {
-        Statas(_HP, 2.0f, r,1);
+        Statas(_HP,waik, r,1);
         player = GameObject.Find("player");
+
+        _hBlur = GetComponent<hBlur>();
         
-        
-    }
+    } 
 
     // Update is called once per frame
     void Update()
@@ -163,7 +169,7 @@ public class fShodow : MonoBehaviour
             {
 
                 walkflg = true;
-                transform.position = new Vector3(obj.transform.position.x + 5.0f, transform.position.y, transform.position.z);
+                transform.position = new Vector3(player.transform.position.x,player.transform.position.y,player.transform.position.z);
 
                 GetComponent<Renderer>().material.color = new Color(0, 0, 0, 1);
             }
@@ -174,6 +180,7 @@ public class fShodow : MonoBehaviour
         {
             print("来た");
             HpDame(1);
+           
 
         }
 
@@ -183,9 +190,13 @@ public class fShodow : MonoBehaviour
 
     public void HpDame(int Dame) //HPを減少させる処理
     {
+
         HP -= Dame;
+
+        _hBlur.BlurChange(hBlur.PlusMinus.plus);
+
         if (HP < 0) Destroy(gameObject);
-        print(HP);
+        //print(HP);
     }
 
    
@@ -194,7 +205,7 @@ public class fShodow : MonoBehaviour
     void OnTriggerEnter2D(Collider2D other)
     {
         obj = other.gameObject;
-        if(obj.name==obj_str)
+        if(obj.tag==obj_str)
         {
             walkflg = false;
 
