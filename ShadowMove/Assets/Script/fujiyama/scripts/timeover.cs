@@ -31,9 +31,9 @@ public class timeover : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
     {
-        red = Camera.main.backgroundColor.r;
-        green = Camera.main.backgroundColor.g;
-        blue = Camera.main.backgroundColor.b;
+        //red = Camera.main.backgroundColor.r;
+        //green = Camera.main.backgroundColor.g;
+        //blue = Camera.main.backgroundColor.b;
        
 	}
 	
@@ -81,5 +81,6 @@ public class timeover : MonoBehaviour {
 
         Camera.main.backgroundColor = new Color(red, green, blue,1);
         //GetComponent<Image>().color = new Color(red, green, blue,1);
+        Camera.main.backgroundColor = new Color(red, green, blue, 1);
 	}
 }
