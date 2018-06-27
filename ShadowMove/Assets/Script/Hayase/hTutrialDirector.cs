@@ -46,6 +46,7 @@ public class hTutrialDirector : MonoBehaviour {
     // プレイヤーが操作するか
     bool isPlay = false;
 
+    bool TutStart = false;
     private void Start()
     {
         for (int i = 0; i < Obj.Length - 1; i++)
@@ -70,48 +71,53 @@ public class hTutrialDirector : MonoBehaviour {
         if (!isPlay)
             cnt += 0.1f;
 
-        if (cnt > 30 && isNext)
+        if (cnt > 60 && !TutStart)
+            TutStart = true;
+        if (TutStart)
         {
-            cnt = 0;
-            isNext = false;
-            txsel++;
-            StartCoroutine("Disp");
-        }
+            if (cnt > 30 && isNext)
+            {
+                cnt = 0;
+                isNext = false;
+                txsel++;
+                StartCoroutine("Disp");
+            }
 
-        switch (txsel)
-        {
-            case 1:
-                ChangeSelect(0);
-                break;
-            case 3:
-                ChangeSelect(1);
-                break;
-            case 6:
-                isPlay = true;
-                if ((hackObj.transform.position - hackObjFinalPos).magnitude < 1)
-                {
-                    hackObj.transform.position = hackObjFinalPos;
-                    isPlay = false;
-                    ChangeSelect(2);
-                }
-                break;
-            case 10:
-                SceneManager.LoadScene("Main");
-                break;
+            switch (txsel)
+            {
+                case 1:
+                    ChangeSelect(0);
+                    break;
+                case 3:
+                    ChangeSelect(1);
+                    break;
+                case 6:
+                    isPlay = true;
+                    if ((hackObj.transform.position - hackObjFinalPos).magnitude < 1)
+                    {
+                        hackObj.transform.position = hackObjFinalPos;
+                        isPlay = false;
+                        ChangeSelect(2);
+                    }
+                    break;
+                case 10:
+                    SceneManager.LoadScene("Main");
+                    break;
 
-        }
+            }
 
-        float nowPos = player.transform.position.x;
-        if(nowPos - memPos > 0)
-        {
-            // yPlayerAIで移動をかけているのでゆっくりにするため
-            player.transform.Translate(new Vector3(-PlayerSpeed, 0, 0));
+            float nowPos = player.transform.position.x;
+            if (nowPos - memPos > 0)
+            {
+                // yPlayerAIで移動をかけているのでゆっくりにするため
+                player.transform.Translate(new Vector3(-PlayerSpeed, 0, 0));
+            }
+            else
+            {
+                isNext = true;
+            }
+            memPos = nowPos;
         }
-        else
-        {
-            isNext = true;
-        }
-        memPos = nowPos;
     }
 
     private IEnumerator Disp()
