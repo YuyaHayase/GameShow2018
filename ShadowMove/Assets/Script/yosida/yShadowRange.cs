@@ -9,11 +9,14 @@ public class yShadowRange : MonoBehaviour {
     bool flgRange = false;  //影が動ける最大範囲まで延びたらTrue
 
     fShodow _fShodow;
+    yPlayerAI _yPlayerAI;
 
 	// Use this for initialization
 	void Start () {
         //スクリプトを取得
         _fShodow = GameObject.Find("shodow").GetComponent<fShodow>();
+        _yPlayerAI = transform.parent.GetComponent<yPlayerAI>();
+        _yPlayerAI.enabled = false;
 
 
         //遅延コルーチン
@@ -25,7 +28,7 @@ public class yShadowRange : MonoBehaviour {
 		
 	}
 
-    //遅延処理(取得したいものがStartで設定しているから取れない可能性があるため)
+    //遅延処理
     IEnumerator Delay()
     {
         //遅延させる
@@ -37,6 +40,7 @@ public class yShadowRange : MonoBehaviour {
 
         //影の範囲の大きさの最大値の場所
         Vector3 radiusPos = radius.transform.position;
+
 
         //半径rの位置まで移動
         while (true)
@@ -64,6 +68,8 @@ public class yShadowRange : MonoBehaviour {
             yield return new WaitForEndOfFrame();
         }
         Destroy(radius.gameObject);
+        _yPlayerAI.enabled = true;
+        GetComponent<CircleCollider2D>().enabled = false;
         yield break;
     }
 
