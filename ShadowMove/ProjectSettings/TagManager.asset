@@ -9,6 +9,8 @@ TagManager:
   - CreatePlace
   - GameOver
   - Needle
+  - Shodow
+  - RadiusPos
   layers:
   - Default
   - TransparentFX
