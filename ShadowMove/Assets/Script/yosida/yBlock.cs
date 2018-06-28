@@ -8,8 +8,9 @@ public class yBlock : MonoBehaviour {
     //| 乗り移ったオブジェクトから離れたとき追加する |
     //------------------------------------------------
     Rigidbody2D rigi2D;
+    BoxCollider2D box2D;
 
-    string[] tagName = { "block", "Needle", "Boss" };
+    string[] tagName = { "block", "Needle", "gimmick", "Boss" };
 
     float time = 0.0f;
     float Gravity;
@@ -18,10 +19,10 @@ public class yBlock : MonoBehaviour {
     // Use this for initialization
     void Start () {
         //Rigidbody2Dを追加する
-        rigi2D = gameObject.AddComponent<Rigidbody2D>();
+        //rigi2D = gameObject.AddComponent<Rigidbody2D>();
 
-        //重力を0にする
-        rigi2D.gravityScale = 0;
+        box2D = GetComponent<BoxCollider2D>();
+
 	}
 	
 	// Update is called once per frame
@@ -53,15 +54,17 @@ public class yBlock : MonoBehaviour {
             {
                 if (tagName[i] != "Boss")
                 {
-                    this.tag = "block";
+                    this.tag = "gimmick";
                 }
 
                 //角度が変わるからその角度を直す
                 transform.rotation = Quaternion.Euler(0, 0, 0);
 
+
                 //消す
                 Destroy(rigi2D);
                 Destroy(this);
+                break;
             }
         }
     }

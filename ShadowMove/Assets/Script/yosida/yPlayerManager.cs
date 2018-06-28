@@ -23,15 +23,15 @@ public class yPlayerManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         //------Playerが動ける範囲制限--------
-		if(transform.position.x >= xMax)
-        {
-            transform.position = new Vector3(xMax, transform.position.y, 0);
-        }
+		//if(transform.position.x >= xMax)
+        //{
+        //    transform.position = new Vector3(xMax, transform.position.y, 0);
+        //}
 
-        if(transform.position.x <= xMin)
-        {
-            transform.position = new Vector3(xMin, transform.position.y, 0);
-        }
+        //if(transform.position.x <= xMin)
+        //{
+        //    transform.position = new Vector3(xMin, transform.position.y, 0);
+        //}
 
 
         //-------画面外に出たら画像を出す--------
