@@ -31,7 +31,7 @@ public class hBlur : MonoBehaviour {
         // もしアタッチしてなかったら、代入
         if (null == BlurOptim) BlurOptim = GetComponent<BlurOptimized>();
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
         if (debug)
@@ -69,6 +69,7 @@ public class hBlur : MonoBehaviour {
     {
         int Math = (ps == PlusMinus.plus) ? 1 : -1;
 
+        // ブラーの段階を変えます
         BlurCount += 1 * Math;
 
         if (BlurFloor > BlurCount || BlurCount > BlurCeling)

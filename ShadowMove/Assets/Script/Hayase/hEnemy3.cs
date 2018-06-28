@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//　NBird
 class hEnemy3 : hEnemy {
 
     [SerializeField, Header("プレイヤーを気づく範囲")]
-    float NoticePlayerDistance = 10.0f;
+    float NoticePlayerDistance = 15.0f;
 
     [SerializeField, Header("ベクタ線の一時的保存座標")]
     Vector2 Vpos;
@@ -28,11 +29,12 @@ class hEnemy3 : hEnemy {
 
     // Use this for initialization
     void Start () {
+        // 初期座標代入
         pos = transform.position;
         EnemyState = Status.Wait;
         if(player == null) player = GameObject.Find("player");
 	}
-	
+
 	// Update is called once per frame
 	void FixedUpdate () {
         CharacterStatus(EnemyState);
@@ -44,8 +46,10 @@ class hEnemy3 : hEnemy {
         {
             // 移動
             case Status.Move:
+                // エネミーの移動 -> プレイヤーの近くへ行き、帰る
                 if (!goback)
                 {
+                    // 線形補間
                     if (t < 0.8f)t += addT;
 
                     if (t > 0.8f) goback = true;
@@ -62,9 +66,11 @@ class hEnemy3 : hEnemy {
                         DeleteEnemy();
                     }
                 }
+
+                // プレイヤーとエネミーの間の適当な座標を取る
                 Vector2 calc = new Vector2(Vpos.x, player.transform.position.y);
                 transform.position = Mathf.Pow((1-t),accelAdd) * Vpos + 2 * t * (1 - t) * calc + Mathf.Pow(t,accelAdd) * (Vector2)player.transform.position;
-                
+
                 pos = transform.position;
                 break;
 

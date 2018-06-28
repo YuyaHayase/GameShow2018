@@ -15,11 +15,14 @@ class hEnemy1 : hEnemy {
     [SerializeField, Header("移動可能範囲")]
     float CanMoveSpace = 1;
 
+    // 初期座標
     Vector2 InitialPosition;
 
     // 待ちなどのカウント
     [SerializeField]
     float FlameCount = 0;
+
+    // どれだけ待つか
     [SerializeField]
     float setFlameCount = 300;
 
@@ -29,12 +32,12 @@ class hEnemy1 : hEnemy {
         // 初期座標代入
         pos = transform.position;
         InitialPosition = pos;
-        if (player == null) Debug.LogError("Playerを入れてください");
+        if (player == null) GameObject.Find("player");
 
         // エネミーの状態を移動状態にする
         EnemyState = Status.Move;
 	}
-	
+
     // Update
     private void FixedUpdate()
     {
@@ -49,11 +52,6 @@ class hEnemy1 : hEnemy {
     {
         switch (status)
         {
-            // 攻撃
-            case Status.Attack:
-                setAttacking = true;
-                break;
-
            // 移動
             case Status.Move:
                 pos += CharacterMove(CharMoveDirection) * MoveSpeed;
@@ -82,21 +80,4 @@ class hEnemy1 : hEnemy {
                 break;
         }
     }
-
-    public bool setAttacking
-    {
-        set
-        {
-            isAttacking = value;
-        }
-    }
-
-    public bool getAttacking
-    {
-        get
-        {
-            return isAttacking;
-        }
-    }
-
 }

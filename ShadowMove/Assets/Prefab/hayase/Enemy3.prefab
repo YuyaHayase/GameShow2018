@@ -75,7 +75,7 @@ MonoBehaviour:
   CharMoveDirection: 6
   AnimationSpeed: 1
   EnemyState: 0
-  NoticePlayerDistance: 10
+  NoticePlayerDistance: 15
   Vpos: {x: 0, y: 0}
   t: 0
   addT: 0.025

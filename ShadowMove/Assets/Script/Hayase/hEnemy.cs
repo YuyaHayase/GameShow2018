@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// エネミーの親クラス
 abstract class hEnemy : MonoBehaviour {
 
     // プレイヤーオブジェクト
@@ -95,6 +96,7 @@ abstract class hEnemy : MonoBehaviour {
         return pos;
     }
 
+    // エネミーの削除
     public void DeleteEnemy()
     {
         Destroy(gameObject);

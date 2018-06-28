@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// セレクトシーン
 public class hSelectNeedle : hTitleNeedle {
 
     // 文字オブジェクトの変数
@@ -9,19 +10,26 @@ public class hSelectNeedle : hTitleNeedle {
     GameObject Yes;
     [SerializeField]
     GameObject No;
+
     [SerializeField, Header("選択時の色")]
     Color SelectedColor;
+
+    // テキストのアルファ
     [SerializeField]
     float alpha = 1;
     bool ShadowPut = false;
+
+    // テキストの影
     GameObject TextShadow;
 
     private void Start()
     {
+        // 選択されたときの色を設定
         SelectedColor = base.IntToNorm(255, 255, 0);
         t = 0;
         add = 1;
 
+        // オブジェクトの代入
         if (null == Yes) Yes = GameObject.Find("はい");
         if (null == No) No = GameObject.Find("いいえ");
     }
@@ -65,7 +73,8 @@ public class hSelectNeedle : hTitleNeedle {
         Rend(Yes, 1 - t / 2.0f);
         Rend(No, Mathf.Abs(t + 0.5f));
     }
-    
+
+    // テキストの色の変更
     protected override void Rend(GameObject g, float t)
     {
         base.Rend(g, t);
@@ -74,6 +83,7 @@ public class hSelectNeedle : hTitleNeedle {
         else g.GetComponent<Renderer>().material.color = new Color(1, 1, 1, alpha);
     }
 
+    // 影オブジェクトの生成
     private void CreateShadow(GameObject g)
     {
         TextShadow = Instantiate(g) as GameObject;

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// チュートリアルのカメラ
 public class hTutrialCamera : MonoBehaviour {
 
     [SerializeField]

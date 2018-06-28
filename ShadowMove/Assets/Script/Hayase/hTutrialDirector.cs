@@ -4,8 +4,10 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
+// チュートリアル
 public class hTutrialDirector : MonoBehaviour {
 
+    // プレイヤーオブジェクト
     [SerializeField, Header("Player")]
     GameObject player;
 
@@ -15,6 +17,7 @@ public class hTutrialDirector : MonoBehaviour {
     [SerializeField, Header("ナビゲーションのテキスト")]
     string[] nav = new string[10];
 
+    // 画面の上でナビし続けるテキスト
     [SerializeField]
     Text DisplayText;
 
@@ -55,6 +58,7 @@ public class hTutrialDirector : MonoBehaviour {
 
     private void Start()
     {
+        // チュートリアル専用ステージのマップタイルのタグを変更
         for (int i = 0; i < Obj.Length - 1; i++)
             if (Obj[i].tag != "Needle")
                 Obj[i].tag = "Needle";
@@ -62,6 +66,7 @@ public class hTutrialDirector : MonoBehaviour {
         if (null == player) GameObject.Find("player");
         memPos = player.transform.position.x;
 
+        // １文字ずつ表示させる
         if (null != DisplayText)
             StartCoroutine("Disp");
 
@@ -71,16 +76,20 @@ public class hTutrialDirector : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-        if(Input.GetKeyDown(KeyCode.Q))
+        // ギミックのクリア
+        if( Input.GetKey(KeyCode.LeftShift) & Input.GetKeyDown(KeyCode.Q))
             hackObj.transform.position = hackObjFinalPos;
 
+        // 操作
         if (!isPlay)
             cnt += 0.1f;
 
+        // チュートリアルが始まるまで少し待つので、待つ
         if (cnt > 60 && !TutStart)
             TutStart = true;
         if (TutStart)
         {
+            // 35フレーム経ったら次のテキスト
             if (cnt > 35 && isNext)
             {
                 cnt = 0;
@@ -89,6 +98,7 @@ public class hTutrialDirector : MonoBehaviour {
                 StartCoroutine("Disp");
             }
 
+            // テキストの選択によって、プレイヤーが行動するか変わる
             switch (txsel)
             {
                 case 1:
@@ -126,6 +136,7 @@ public class hTutrialDirector : MonoBehaviour {
         }
     }
 
+    // コルーチン -> テキストを一文字ずつ表示させます
     private IEnumerator Disp()
     {
         for(int i = 0; i < nav[txsel].Length + 1; i++)
@@ -135,6 +146,7 @@ public class hTutrialDirector : MonoBehaviour {
         }
     }
 
+    // オブジェクトのタグを Needle から block にします
     private void ChangeSelect(int i)
     {
         Obj[i].tag = "block";

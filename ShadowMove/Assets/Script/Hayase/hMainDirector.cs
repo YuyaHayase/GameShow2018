@@ -4,8 +4,10 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.IO;
 
+// メインシーン
 public class hMainDirector : MonoBehaviour {
 
+    // どのステージにするか
     [SerializeField]
     static int StageSelect;
 
@@ -24,13 +26,15 @@ public class hMainDirector : MonoBehaviour {
     [SerializeField, Header("ボスステージシーン名")]
     string bossStage;
 
+    // csvからエネミーの座標を取得
     private List<string[]> Position = new List<string[]>();
+
+    // 取得されたエネミーを配列に記憶
+    private List<GameObject> ee = new List<GameObject>();
 
 	// Use this for initialization
 	void Start () {
-        StageSelect = 1;
-        //CreateGround();
-
+        // csvFile
         var filename = "Enemy";
         var csvFile = Resources.Load("CSV/" + filename) as TextAsset;
         var re = new StringReader(csvFile.text);
@@ -42,12 +46,14 @@ public class hMainDirector : MonoBehaviour {
             Position.Add(address);
         }
 
-        putEnemy();
+        StageSelect = 0;
+        CreateGround();
     }
 
     // Update is called once per frame
     void Update () {
-        if (Input.GetKeyDown(KeyCode.P))
+        // デバック用 -> 次のステージに変えます
+        if (Input.GetKey(KeyCode.LeftShift) & Input.GetKeyDown(KeyCode.P))
             EndedStage();
     }
 
@@ -57,25 +63,29 @@ public class hMainDirector : MonoBehaviour {
         return new Vector3(float.Parse(a), float.Parse(b));
     }
 
-    // ステージにエネミーを起きます
+    // ステージにエネミーを置きます
     private void putEnemy()
     {
+        foreach (GameObject g in ee)
+            Destroy(g);
+
         foreach (string[] data in Position)
         {
-            string aaa = data[0];
-            Debug.Log(aaa);
             if (int.Parse(data[0]) - 1 == StageSelect)
             {
-                Instantiate(Enemys[int.Parse(data[3])], StringToVector3(data[1].ToString(), data[2].ToString()), Quaternion.identity);
+                ee.Add(Instantiate(Enemys[int.Parse(data[3])], StringToVector3(data[1].ToString(), data[2].ToString()), Quaternion.identity));
             }
         }
     }
 
+    // 地面の生成
     void CreateGround()
     {
         DispStage = Instantiate(stageName[StageSelect]) as GameObject;
+        putEnemy();
     }
 
+    // 地面の削除
     void DeleteGround()
     {
         if (selected + 1 > stageName.Length - 1)
@@ -88,6 +98,7 @@ public class hMainDirector : MonoBehaviour {
         selected = StageSelect;
     }
 
+    // ステージが終了したら地面の生成と削除
     public void EndedStage()
     {
         DeleteGround();

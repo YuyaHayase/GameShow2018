@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+// タイトルの操作
 public class hTitleNeedle : MonoBehaviour {
 
     [SerializeField, Header("needle"), Range(0, 1)]
@@ -42,6 +43,7 @@ public class hTitleNeedle : MonoBehaviour {
     [SerializeField]
     GameObject Clock;
 
+    // 右の時計版の回転速度
     [SerializeField, Header("時計盤の回転速度"), Range(0,1)]
     float ClockRotateSpeed = 0.025f;
 
@@ -134,6 +136,7 @@ public class hTitleNeedle : MonoBehaviour {
         return rtnColor;
     }
 
+    // 実シーンの読み込み
     public void SceneLoad(string name)
     {
         Debug.Log(name);

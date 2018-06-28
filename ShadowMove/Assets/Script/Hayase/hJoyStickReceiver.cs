@@ -30,7 +30,7 @@ public class hJoyStickReceiver : MonoBehaviour {
         TrackPad,
         AnotherButton
     }
-	
+
     // ボタンの番号取得
     public string GetPlayBtn(PlayStationContoller s)
     {
@@ -78,7 +78,7 @@ public class hJoyStickReceiver : MonoBehaviour {
                 break;
             case PlayStationContoller.TrackPad:
                 jbc = "13";
-                break;                
+                break;
         }
         return "joystick button " + jbc;
     }
@@ -86,7 +86,6 @@ public class hJoyStickReceiver : MonoBehaviour {
     // start
     void Start()
     {
-        
         /*
         GameObject g = transform.FindChild("humer").gameObject;
 
