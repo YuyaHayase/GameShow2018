@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class hTitleNeedle : MonoBehaviour {
 
     [SerializeField, Header("needle"), Range(0, 1)]
-    protected float t = 0;
+    protected float t = 0.5f;
 
     // 回転の最小角度
     float minRotate = -45;
@@ -17,18 +17,14 @@ public class hTitleNeedle : MonoBehaviour {
     protected float add = 0.5f;
 
     // 値を変化する際の目標
-    protected float next = 0;
+    [SerializeField, Header("値を変化する際の目標"), Range(0,1)]
+    protected float next = 0.5f;
 
     // 文字オブジェクトの変数
     [SerializeField, Header("文字")]
     GameObject GameStart;
     [SerializeField]
     GameObject GameStartJp;
-
-    [SerializeField]
-    GameObject Config;
-    [SerializeField]
-    GameObject ConfigJp;
 
     [SerializeField]
     GameObject Quit;
@@ -93,7 +89,6 @@ public class hTitleNeedle : MonoBehaviour {
         {
             if (t == 1) Application.Quit();
             else if (t == 0) SceneLoad(SceneName[0]);
-            else SceneLoad(SceneName[1]);
         }
 
         // 時計の文字盤の回転
@@ -110,8 +105,6 @@ public class hTitleNeedle : MonoBehaviour {
         // 文字の透過
         Rend(GameStart, (1 - t));
         Rend(GameStartJp, (1 - t));
-        Rend(Config, 1 - Mathf.Abs(t - 0.5f));
-        Rend(ConfigJp, 1 - Mathf.Abs(t - 0.5f));
         Rend(Quit, t);
         Rend(QuitJp, t);
 

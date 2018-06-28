@@ -28,6 +28,7 @@ public class hSelectNeedle : hTitleNeedle {
         SelectedColor = base.IntToNorm(255, 255, 0);
         t = 0;
         add = 1;
+        next = 0;
 
         // オブジェクトの代入
         if (null == Yes) Yes = GameObject.Find("はい");
