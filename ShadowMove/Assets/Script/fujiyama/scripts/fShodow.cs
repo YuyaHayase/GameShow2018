@@ -92,8 +92,8 @@ public class fShodow : MonoBehaviour
         Statas(_HP,waik, r,1);
         player = GameObject.Find("player");
 
-        _hBlur = GetComponent<hBlur>();
-        
+        //_hBlur = Camera.main.GetComponent<hBlur>();
+
     } 
 
     // Update is called once per frame
@@ -176,20 +176,19 @@ public class fShodow : MonoBehaviour
             {
 
                 walkflg = true;
-                transform.position = new Vector3(player.transform.position.x,player.transform.position.y,player.transform.position.z);
+                transform.position = player.transform.position;
 
                 GetComponent<Renderer>().material.color = new Color(0, 0, 0, 1);
+                GetComponent<BoxCollider2D>().enabled = true;
+
 
                 if (flgPossess)
                 {
                     //脱出した時スクリプトを追加する（ブロックが落下する、落として攻撃）
-                    //yBlock _yBlock = obj.gameObject.AddComponent<yBlock>();
+                    yBlock _yBlock = obj.gameObject.AddComponent<yBlock>();
 
                     //重力と減速率の設定
-                    //_yBlock.Config(9.8f, 0.2f);
-
-                    //乗り移っていたオブジェクトのトリガーをfalseにする
-                    obj.GetComponent<BoxCollider2D>().isTrigger = false;
+                    _yBlock.Config(9.8f, 0.2f);
 
                     //タグを変える
                     obj.tag = "AttackBlock";
@@ -203,7 +202,7 @@ public class fShodow : MonoBehaviour
 
         if (r<d)//範囲外になったら
         {
-            print("来た");
+            //print("来た");
             HpDame(1);
            
 
@@ -218,25 +217,43 @@ public class fShodow : MonoBehaviour
 
         HP -= Dame;
 
-        _hBlur.BlurChange(hBlur.PlusMinus.plus);
+        
 
-        if (HP < 0) Destroy(gameObject);
+        if (HP < 0)
+        {
+            Destroy(gameObject);
+            //_hBlur.BlurChange(hBlur.PlusMinus.plus);
+        }
+        
         //print(HP);
     }
 
    
 
     //オブジェクトに当たったら乗り移ル。
-    void OnTriggerEnter2D(Collider2D other)
+    void OnCollisionEnter2D(Collision2D other)
     {
         obj = other.gameObject;
-        if(obj.tag==obj_str)
+
+        if (obj.tag==obj_str)
         {
+           
             walkflg = false;
 
             //ただいま乗り移っています
             flgPossess = true;
 
+            //乗り移っていたオブジェクトのトリガーをfalseにする
+            obj.GetComponent<BoxCollider2D>().isTrigger = false;
+
+            //あたり判定をつけるため
+            obj.gameObject.AddComponent<Rigidbody2D>();
+
+            obj.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
+
+            obj.GetComponent<Rigidbody2D>().gravityScale = 0;
+
+            GetComponent<BoxCollider2D>().enabled = false;
             GetComponent<Renderer>().material.color = new Color(0, 0, 0, 0);
         }
         

@@ -17,6 +17,7 @@ public class yShadowRange : MonoBehaviour {
         _fShodow = GameObject.Find("shodow").GetComponent<fShodow>();
         _yPlayerAI = transform.parent.GetComponent<yPlayerAI>();
         _yPlayerAI.enabled = false;
+        _fShodow.enabled = false;
 
 
         //遅延コルーチン
@@ -68,7 +69,10 @@ public class yShadowRange : MonoBehaviour {
             yield return new WaitForEndOfFrame();
         }
         Destroy(radius.gameObject);
+
         _yPlayerAI.enabled = true;
+        _fShodow.enabled = true;
+
         GetComponent<CircleCollider2D>().enabled = false;
         yield break;
     }
