@@ -78,7 +78,14 @@ public class fShodow : MonoBehaviour
     int a;
 
     [SerializeField, Header("乗り移るオブジェクト名")]
-    public string obj_str;    
+    public string obj_str;
+
+    bool flgPossess = false;
+
+    public bool FlgPossess
+    {
+        get { return flgPossess; }
+    }
 
     void Start()
     {
@@ -172,6 +179,24 @@ public class fShodow : MonoBehaviour
                 transform.position = new Vector3(player.transform.position.x,player.transform.position.y,player.transform.position.z);
 
                 GetComponent<Renderer>().material.color = new Color(0, 0, 0, 1);
+
+                if (flgPossess)
+                {
+                    //脱出した時スクリプトを追加する（ブロックが落下する、落として攻撃）
+                    //yBlock _yBlock = obj.gameObject.AddComponent<yBlock>();
+
+                    //重力と減速率の設定
+                    //_yBlock.Config(9.8f, 0.2f);
+
+                    //乗り移っていたオブジェクトのトリガーをfalseにする
+                    obj.GetComponent<BoxCollider2D>().isTrigger = false;
+
+                    //タグを変える
+                    obj.tag = "AttackBlock";
+
+                    //乗り移りやめました
+                    flgPossess = false;
+                }
             }
 
         }
@@ -208,6 +233,9 @@ public class fShodow : MonoBehaviour
         if(obj.tag==obj_str)
         {
             walkflg = false;
+
+            //ただいま乗り移っています
+            flgPossess = true;
 
             GetComponent<Renderer>().material.color = new Color(0, 0, 0, 0);
         }
