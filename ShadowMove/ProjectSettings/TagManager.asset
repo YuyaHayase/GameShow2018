@@ -11,6 +11,8 @@ TagManager:
   - Needle
   - Shodow
   - RadiusPos
+  - Boss
+  - AttackBlock
   layers:
   - Default
   - TransparentFX
@@ -20,8 +22,8 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
+  - Player
+  - Shodow
   - 
   - 
   - 

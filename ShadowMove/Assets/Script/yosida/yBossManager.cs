@@ -35,8 +35,8 @@ public class yBossManager : MonoBehaviour {
 	void Update () {
 
         //デバッグ用
-        if (Input.GetKeyDown(KeyCode.Space))
-            BossDamage(10);
+        //if (Input.GetKeyDown(KeyCode.Space))
+        //    BossDamage(10);
 
         //ダメージを受けたら
         if(flgDamage)
@@ -79,11 +79,12 @@ public class yBossManager : MonoBehaviour {
         remaining = 1.0f - (hp / maxHP);
     }
 
-    private void OnTriggerEnter2D(Collider2D coll)
+    private void OnCollisionEnter2D(Collision2D coll)
     {
-        if (coll.gameObject.CompareTag("block"))
+        if (coll.gameObject.CompareTag("AttackBlock"))
         {
             BossDamage(10);
+            Destroy(coll.gameObject);
         }
     }
 }
