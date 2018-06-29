@@ -18,6 +18,8 @@ public class yFade : MonoBehaviour {
     fShodow _fshodow;
     yPlayerAI _yPlayerAI;
 
+    timeover tim;
+
     public string NextScene
     {
         set { nextScene = value; }
@@ -30,6 +32,7 @@ public class yFade : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        tim = Camera.main.GetComponent<timeover>();
         player = GameObject.Find("player");
         shodow = GameObject.Find("shodow");
         _hMainDirector = GameObject.Find("MainDirector").GetComponent<hMainDirector>();
@@ -70,7 +73,9 @@ public class yFade : MonoBehaviour {
             _fshodow.FlgPossess = false;
 
             player.transform.position = _yPlayerAI.StartPos;
-            shodow.transform.position = _yPlayerAI.StartPos;
+            shodow.transform.position = new Vector3(-6, 4);
+
+            Camera.main.transform.position = shodow.transform.position + new Vector3(0, 0, -10);
 
             _yPlayerAI.Speed = _yPlayerAI.SpeedSave;
 
@@ -79,6 +84,8 @@ public class yFade : MonoBehaviour {
             _fshodow.isWalkFlg = true;
             _fshodow.GetComponent<Renderer>().material.color = Color.black;
             shodow.GetComponent<BoxCollider2D>().isTrigger = false;
+            tim.mode = 1;
+            tim.t = 0;
         }
     }
 }
