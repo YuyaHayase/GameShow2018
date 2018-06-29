@@ -13,6 +13,9 @@ public class yCameraMove : MonoBehaviour {
     [SerializeField,Header("カメラ移動")]
     float speed = 1.0f;
 
+    [SerializeField,Header("エンディング用")]
+    bool flgEnding = false;
+
     fShodow _fShodow;
 
 	// Use this for initialization
@@ -25,18 +28,20 @@ public class yCameraMove : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        //transform.position = new Vector3(shodow.transform.position.x, 
-        //                                 shodow.transform.position.y + y, 
-        //                                 transform.position.z);
-
+        if (flgEnding)
+        {
+            transform.position = new Vector3(shodow.transform.position.x,
+                                             shodow.transform.position.y + y,
+                                             transform.position.z);
+        }
         //乗り移っている最中
-        if (_fShodow.FlgPossess)
+         else if (_fShodow.FlgPossess)
         {
             //カメラを乗り移っているオブジェクトに追従
             if (transform.position == _fShodow.obj.transform.position)
             {
                 transform.position = new Vector3(_fShodow.obj.transform.position.x,
-                                                 _fShodow.obj.transform.position.y + y,
+                                                 _fShodow.obj.transform.position.y,
                                                  transform.position.z);
             }
             else//カメラをオブジェクトの位置までだんだん移動する
@@ -52,7 +57,7 @@ public class yCameraMove : MonoBehaviour {
             if (transform.position == shodow.transform.position)
             {
                 transform.position = new Vector3(shodow.transform.position.x,
-                                                 shodow.transform.position.y + y,
+                                                 shodow.transform.position.y,
                                                  transform.position.z);
             }
             else//カメラを影の位置までだんだん移動する

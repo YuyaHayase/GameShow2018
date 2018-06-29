@@ -8,7 +8,7 @@ public class yBlock : MonoBehaviour {
     //| 乗り移ったオブジェクトから離れたとき追加する |
     //------------------------------------------------
     Rigidbody2D rigi2D;
-    BoxCollider2D box2D;
+    Vector2 mySize;
 
     string[] tagName = { "block", "Needle", "gimmick", "Boss" };
 
@@ -16,12 +16,14 @@ public class yBlock : MonoBehaviour {
     float Gravity;
     float freeFallAccel;
 
+    bool flg = false;
+
     // Use this for initialization
     void Start () {
-        //Rigidbody2Dを追加する
-        //rigi2D = gameObject.AddComponent<Rigidbody2D>();
+        //Rigidbody2Dを取得する
+        rigi2D = GetComponent<Rigidbody2D>();
 
-        box2D = GetComponent<BoxCollider2D>();
+        mySize = GetComponent<SpriteRenderer>().bounds.size;
 
 	}
 	
@@ -52,19 +54,28 @@ public class yBlock : MonoBehaviour {
         {
             if (coll.gameObject.CompareTag(tagName[i]))
             {
-                if (tagName[i] != "Boss")
+                if (!flg)
                 {
-                    this.tag = "gimmick";
+                    flg = true;
+                    if (tagName[i] != "Boss")
+                    {
+                        this.tag = "gimmick";
+                    }
+
+                    //角度が変わるからその角度を直す
+                    //transform.rotation = Quaternion.Euler(0, 0, 0);
+                    print(1);
+                    Destroy(rigi2D);
+
+                    Vector2 collSize = coll.gameObject.GetComponent<SpriteRenderer>().bounds.size;
+                    Vector3 pos = transform.position;
+
+                    pos.y = coll.gameObject.transform.position.y + (mySize.y / 2) + (collSize.y / 2);
+                    transform.position = pos;
+                    //消す
+                    Destroy(this);
+                    break;
                 }
-
-                //角度が変わるからその角度を直す
-                transform.rotation = Quaternion.Euler(0, 0, 0);
-
-
-                //消す
-                Destroy(rigi2D);
-                Destroy(this);
-                break;
             }
         }
     }
