@@ -253,7 +253,6 @@ MonoBehaviour:
     min: {x: -7.51, y: -9.3}
   y: 2
   speed: 1
-  flgEnding: 0
 --- !u!114 &121441241
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -501,6 +500,7 @@ MonoBehaviour:
   selected: 0
   DispStage: {fileID: 0}
   bossStage: Title
+  BGM: {fileID: 0}
 --- !u!4 &2133680072
 Transform:
   m_ObjectHideFlags: 0
