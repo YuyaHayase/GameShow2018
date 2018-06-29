@@ -407,8 +407,8 @@ MonoBehaviour:
   i: 0
   aplha: 1
   aplha2: 0
-  mainscene: 
-  titlescene: 
+  mainscene: Main
+  titlescene: Title
   time: 0
 --- !u!4 &302884996
 Transform:
