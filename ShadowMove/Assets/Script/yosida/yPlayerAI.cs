@@ -117,8 +117,12 @@ public class yPlayerAI : MonoBehaviour {
                 {
                     if (FlgHitObject(hitObjectWork))
                     {
-                        workSpeed = speed;
-                        flgJump = false;
+                        if (FlgTagHitObject(hitObjectWork, "block")
+                         || FlgTagHitObject(hitObjectWork, "gimmick"))
+                        {
+                            workSpeed = speed;
+                            flgJump = false;
+                        }
                     }
                     else
                     {
@@ -145,8 +149,8 @@ public class yPlayerAI : MonoBehaviour {
                     }
                     else
                     {
-                        flgJump = false;
-                        workSpeed = speed;
+                        //flgJump = false;
+                        //workSpeed = speed;
                     }
                 }
                 else if (FlgHitObject(hitObjectStepJump) && FlgHitObject(hitObjectHeight))

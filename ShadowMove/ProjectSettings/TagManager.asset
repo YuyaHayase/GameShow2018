@@ -14,6 +14,7 @@ TagManager:
   - Boss
   - AttackBlock
   - gimmick
+  - Stage
   layers:
   - Default
   - TransparentFX
