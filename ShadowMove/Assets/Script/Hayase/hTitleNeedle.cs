@@ -49,12 +49,19 @@ public class hTitleNeedle : MonoBehaviour {
     // 背景色
     Color[] SkyColor;
 
+    [SerializeField]
+    GameObject BGM;
+
     // タイトル影、ポジション係数
     [SerializeField, Header("影のx移動係数")]
     float xTitleMove = 1f;
 
     void Start()
     {
+        if (null == BGM) BGM = GameObject.Find("Sound");
+        if (null != BGM)
+            BGM.GetComponent<AudioSource>().Stop();
+
         // カメラの背景色の設定
         SkyColor = new Color[] { IntToNorm(120, 210, 210), IntToNorm(180, 110, 30), IntToNorm(230, 230, 0) };
 

@@ -78,10 +78,7 @@ public class hTutrialDirector : MonoBehaviour {
 
         if (null == BGM) BGM = GameObject.Find("Sound");
         if (null != BGM)
-        {
-            Debug.Log(BGM.GetComponent<fsoundcontolloer>().BGM[0]);
             BGM.GetComponent<fsoundcontolloer>().select_BGM(0);
-        }
     }
 
     // Update is called once per frame

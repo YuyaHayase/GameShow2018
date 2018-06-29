@@ -32,8 +32,11 @@ public class hMainDirector : MonoBehaviour {
     // 取得されたエネミーを配列に記憶
     private List<GameObject> ee = new List<GameObject>();
 
-	// Use this for initialization
-	void Start () {
+    [SerializeField]
+    GameObject BGM;
+
+    // Use this for initialization
+    void Start () {
         // csvFile
         var filename = "Enemy";
         var csvFile = Resources.Load("CSV/" + filename) as TextAsset;
@@ -45,6 +48,10 @@ public class hMainDirector : MonoBehaviour {
             var address = lineData.Split(',');
             Position.Add(address);
         }
+
+        if (null == BGM) BGM = GameObject.Find("Sound");
+        if (null != BGM)
+            BGM.GetComponent<fsoundcontolloer>().select_BGM(1);
 
         StageSelect = 0;
         CreateGround();
