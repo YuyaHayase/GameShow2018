@@ -126,8 +126,8 @@ GameObject:
   - component: {fileID: 121441234}
   - component: {fileID: 121441238}
   - component: {fileID: 121441239}
-  - component: {fileID: 121441240}
   - component: {fileID: 121441241}
+  - component: {fileID: 121441240}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -238,7 +238,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22b9115e856a3e248b3c413d206d68a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  y: 0
+  cameraRange:
+  - stageName: 1-1,1
+    max: {x: 140.57, y: 3.3}
+    min: {x: -2.58, y: -3.59}
+  - stageName: 2-1
+    max: {x: 104.2, y: 8.1}
+    min: {x: -2.6, y: -1.59}
+  - stageName: 4-1
+    max: {x: 99.1, y: 3.99}
+    min: {x: 0.98, y: -1.59}
+  - stageName: 4-1,boss
+    max: {x: 208, y: 4.33}
+    min: {x: -7.51, y: -9.3}
+  y: 2
   speed: 1
   flgEnding: 0
 --- !u!114 &121441241
@@ -261,6 +274,25 @@ MonoBehaviour:
   aftenoon: {r: 0.9672414, g: 1, b: 0.875, a: 1}
   evening: {r: 0.86764705, g: 0.5205883, b: 0, a: 1}
   night: {r: 0, g: 0.050709944, b: 0.29411763, a: 1}
+--- !u!1 &242428857 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1926397515859712, guid: 77569b5577f0386459ee6634f2c873fc,
+    type: 2}
+  m_PrefabInternal: {fileID: 1078552314}
+--- !u!114 &242428867
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 242428857}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4425093bbdb27c84d89b0956bf511c6b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spr: {fileID: 212714104120963762, guid: edc18451a3ddcd342ab5dfa847639d27, type: 2}
+  xMax: 0
+  xMin: 0
 --- !u!1001 &766028625
 Prefab:
   m_ObjectHideFlags: 0
@@ -350,6 +382,22 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 77569b5577f0386459ee6634f2c873fc, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &1250817846 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1547820476091390, guid: 3f6b9bbe3ba9a3a4483c9145047fd429,
+    type: 2}
+  m_PrefabInternal: {fileID: 766028625}
+--- !u!114 &1250817852
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1250817846}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbc4bf4ff9ce9114eb6d45a25f7f1516, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1834151355
 GameObject:
   m_ObjectHideFlags: 0
