@@ -998,7 +998,7 @@ MonoBehaviour:
   - text: "\u30C1\u30FC\u30E0\u540D"
     textPos: {x: -192.3, y: 85, z: 0}
     size: {x: 344.6, y: 78.8}
-  - text: "\u30D5\u30B8\u30AB\u30F3\u30D1\u30CB\u30FC"
+  - text: "\u30DD\u30B8\u30AB\u30F3\u30D1\u30CB"
     textPos: {x: 165, y: 85, z: 0}
     size: {x: 344.6, y: 78.8}
   - text: Game  Clear

@@ -53,7 +53,6 @@ public class hMainDirector : MonoBehaviour {
         if (null != BGM)
             BGM.GetComponent<fsoundcontolloer>().select_BGM(1);
 
-        StageSelect = 0;
         CreateGround();
     }
 
@@ -97,6 +96,7 @@ public class hMainDirector : MonoBehaviour {
     {
         if (selected + 1 > stageName.Length - 1)
         {
+            StageSelect = 0;
             SceneManager.LoadScene(bossStage);
         }
 

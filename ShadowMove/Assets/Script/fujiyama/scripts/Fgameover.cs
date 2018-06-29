@@ -33,7 +33,7 @@ public class Fgameover : MonoBehaviour {
 
     Text tx;
 
-    bool flg = false;
+    bool flg = true;
 
 
     // Use this for initialization

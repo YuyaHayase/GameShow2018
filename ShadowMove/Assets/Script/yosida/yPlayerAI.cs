@@ -13,11 +13,14 @@ public class yPlayerAI : MonoBehaviour {
 
     BoxCollider2D box2D;
 
+    Vector3 startPos;
+
     [SerializeField, Header("足場が当たっているかどうか")]
     ContactFilter2D filter2D;
 
     [SerializeField, Header("歩くスピード")]
     float speed;
+    float speedSave;
 
     float workSpeed = 0.0f;
 
@@ -53,8 +56,20 @@ public class yPlayerAI : MonoBehaviour {
         get { return speed; }
     }
 
+    public Vector3 StartPos
+    {
+        get { return startPos; }
+    }
+
+    public float SpeedSave
+    {
+        get { return speedSave; }
+    }
+
     // Use this for initialization
     void Start () {
+        startPos = transform.position;
+        speedSave = speed;
 
         //子オブジェクトの取得
         rayPointWork = transform.Find("RayPointWork").gameObject;

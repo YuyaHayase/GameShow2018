@@ -8,7 +8,7 @@ public class fShodow : MonoBehaviour
     
     
         [SerializeField, Header("移動スピード")]
-        public float shedowWALK;
+        public float shedowWALK = 4;
         
         [SerializeField,Header("移動スピード設定するやつ")]
         public float waik;
@@ -85,12 +85,22 @@ public class fShodow : MonoBehaviour
     public bool FlgPossess
     {
         get { return flgPossess; }
+        set { flgPossess = value; }
+    }
+
+    public bool isWalkFlg
+    {
+        set
+        {
+            walkflg = value;
+        }
     }
 
     void Start()
     {
         Statas(_HP,waik, r,1);
         player = GameObject.Find("player");
+        walkflg = true;
 
         //_hBlur = Camera.main.GetComponent<hBlur>();
 
@@ -186,7 +196,7 @@ public class fShodow : MonoBehaviour
                 GetComponent<Renderer>().material.color = new Color(0, 0, 0, 1);
                 GetComponent<BoxCollider2D>().enabled = true;
 
-
+            
                 if (flgPossess)
                 {
                     Vector3 pos = obj.transform.position;
