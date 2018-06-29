@@ -19,7 +19,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4056346977310702}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: RayPointNeedle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -37,7 +37,7 @@ GameObject:
   - component: {fileID: 212070138684037832}
   - component: {fileID: 114213273394000258}
   - component: {fileID: 58463360402520824}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: radius
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -54,7 +54,7 @@ GameObject:
   - component: {fileID: 4396690202797600}
   - component: {fileID: 61882670835511540}
   - component: {fileID: 50622574433968764}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: radiusPos
   m_TagString: RadiusPos
   m_Icon: {fileID: 0}
@@ -69,7 +69,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4252669959741252}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: RayPointHeight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -84,7 +84,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4762571119657044}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: RayPointStepJump
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -107,7 +107,7 @@ GameObject:
   - component: {fileID: 58137697601685358}
   - component: {fileID: 114546165728871182}
   - component: {fileID: 114021508971423788}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -122,7 +122,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4956090245307754}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: RayPointWork
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -162,7 +162,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1654163052373300}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.28, y: 0.21, z: 0}
+  m_LocalPosition: {x: 0.28, y: 0.28, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4560613220136854}
@@ -188,7 +188,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1926397515859712}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.402, y: 1.474, z: 0}
+  m_LocalPosition: {x: -5.52, y: 2.26, z: 0}
   m_LocalScale: {x: 4.5915637, y: 4.5915637, z: 0.7652607}
   m_Children:
   - {fileID: 4956090245307754}

@@ -49,6 +49,8 @@ public class yBoss : MonoBehaviour {
     bool flgRand = true;
     bool flgJumpStop = false;
 
+    yPlayerAI _yPlayerAI;
+
 	// Use this for initialization
 	void Start () {
         //オブジェクトを取得
@@ -61,6 +63,7 @@ public class yBoss : MonoBehaviour {
         //攻撃パターンを他の変数に保存する
         for(int i = 0;i < pattern.Count;i++)
             patternSave.Add(pattern[i]);
+
 	}
 	
 	// Update is called once per frame
@@ -110,10 +113,15 @@ public class yBoss : MonoBehaviour {
     //体当たり攻撃
     private void BodyBlow()
     {
+
         switch (order)
         {
             case 1://左右のどっちに移動するか
                 animeSpeed += 0.1f;
+
+                xMin = Camera.main.transform.position.x - 4.0f;
+                xMax = Camera.main.transform.position.x + 4.0f;
+
                 if (animeSpeed >= 15.0f)
                 {
                     animeSpeed = 15.0f;
@@ -215,12 +223,19 @@ public class yBoss : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D coll)
     {
-        if (coll.gameObject.CompareTag("block"))
+        if (coll.gameObject.CompareTag("gimmick"))
         {
             flgJumpStop = true;
+            AttackEnd();
         }
     }
 
+    private void OnBecameVisible()
+    {
+        enabled = true;
+        _yPlayerAI = player.GetComponent<yPlayerAI>();
+        _yPlayerAI.Speed = 0.02f;
+    }
     /*
      ボスの攻撃パターン
     // * ふみつける  

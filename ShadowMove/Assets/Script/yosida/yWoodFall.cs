@@ -18,6 +18,12 @@ public class yWoodFall : MonoBehaviour {
     [SerializeField,Header("デバッグ用(倒れる)")]
     bool flgFall = false;
 
+    public bool FlgFall
+    {
+        get { return flgFall; }
+        set { flgFall = value; }
+    }
+
 	// Use this for initialization
 	void Start () {
         //右に倒れる場合マイナスになる
@@ -49,6 +55,13 @@ public class yWoodFall : MonoBehaviour {
             flgFall = false;
             transform.rotation = Quaternion.Euler
                 (transform.eulerAngles.x, transform.eulerAngles.y, angle);
+
+            angle += 90;
+            if (angle > 180.0f)
+            {
+                angle = 0.0f;
+                transform.rotation = Quaternion.Euler(0, 0, 0);
+            }
         }
     }
     //右に倒れる
@@ -59,6 +72,13 @@ public class yWoodFall : MonoBehaviour {
             flgFall = false;
             transform.rotation = Quaternion.Euler
                 (transform.eulerAngles.x, transform.eulerAngles.y, angle);
+
+            angle -= 90;
+            if (angle < 180.0f)
+            {
+                angle = 360.0f;
+                transform.rotation = Quaternion.Euler(0, 0, 0);
+            }
         }
     }
 }

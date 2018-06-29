@@ -74,7 +74,7 @@ public class yPlayerAI : MonoBehaviour {
         //あたり判定
         flgFilter = rigi2D.IsTouching(filter2D);
 
-        //Rayでhitしたオブジェクトを全て取得
+        //--------------Rayでhitしたオブジェクトを全て取得--------------------------
 
         //歩けるかどうか
         RaycastHit2D[] hitObjectWork = Physics2D.RaycastAll(rayPointWork.transform.position, Vector2.zero);
@@ -92,62 +92,72 @@ public class yPlayerAI : MonoBehaviour {
 
         //Rayで何かを取得したら
 
-        //歩けるかどうか
-        if (hitObjectWork.Length > 0)
+        //ジャンプ中は判定しない
+        if (!flgJump)
         {
-            //tagがBlockだった場合歩き続ける
-            if (hitObjectWork[TagNum(hitObjectWork, "block")].collider.gameObject.CompareTag("block"))
-                workSpeed = speed;
-            else
-                workSpeed = 0;
-        }
-        else if(hitObjectWork.Length == 0)
-        {
-            flgJump = true;
-        }
-
-
-        //ジャンプするかどうか
-        if (flgFilter)
-        {
-            if (hitObjectStepJump.Length > 0 && hitObjectHeight.Length == 0)
+            //歩けるかどうか
+            if (FlgHitObject(hitObjectWork))
             {
-                //一歩先にブロックか針があったらジャンプ
-                if (hitObjectStepJump[TagNum(hitObjectStepJump, "block")].collider.gameObject.CompareTag("block")
-                 || hitObjectStepJump[TagNum(hitObjectStepJump, "Needle")].collider.gameObject.CompareTag("Needle"))
-                {
-                    flgJump = true;
+                //tagがBlockだった場合歩き続ける
+                if (FlgTagHitObject(hitObjectWork, "block")
+                 || FlgTagHitObject(hitObjectWork, "gimmick"))
                     workSpeed = speed;
-                }
                 else
-                    flgJump = false;
-            }
-            else if(hitObjectStepJump.Length > 0 && hitObjectHeight.Length > 0)
-            {
-                //壁が高かったら
-                flgJump = false;
-                workSpeed = 0;
-            }
-        }
-
-        //針があったら止まる
-        if (hitObjectNeedle.Length > 0)
-        {
-            if (hitObjectNeedle[TagNum(hitObjectNeedle, "Needle")].collider.gameObject.CompareTag("Needle"))
-            {
-                if (hitObjectWork.Length > 0)
-                {
-                    workSpeed = speed;
-                    flgJump = false;
-                }
-                else
-                {
                     workSpeed = 0;
+            }
+            else if (hitObjectWork.Length == 0)
+            {
+                flgJump = true;
+            }
+
+            //針があったら止まる
+            if (FlgHitObject(hitObjectNeedle))
+            {
+                if (FlgTagHitObject(hitObjectNeedle, "Needle"))
+                {
+                    if (FlgHitObject(hitObjectWork))
+                    {
+                        workSpeed = speed;
+                        flgJump = false;
+                    }
+                    else
+                    {
+                        workSpeed = 0;
+                        flgJump = false;
+                    }
+                }
+            }
+
+
+            //ジャンプするかどうか
+            if (flgFilter)
+            {
+                //ジャンプできる高さかどうか
+                if (FlgHitObject(hitObjectStepJump) && hitObjectHeight.Length == 0)
+                {
+                    //一歩先に何かがあったらジャンプ
+                    if (FlgTagHitObject(hitObjectStepJump, "block")
+                     || FlgTagHitObject(hitObjectStepJump, "Needle")
+                     || FlgTagHitObject(hitObjectStepJump, "gimmick"))
+                    {
+                        flgJump = true;
+                        workSpeed = speed;
+                    }
+                    else
+                    {
+                        flgJump = false;
+                        workSpeed = speed;
+                    }
+                }
+                else if (FlgHitObject(hitObjectStepJump) && FlgHitObject(hitObjectHeight))
+                {
+                    //壁が高かったら
                     flgJump = false;
+                    workSpeed = 0;
+                    return;
                 }
             }
         }
-
 
         //ジャンプの挙動
         Jump();
@@ -156,18 +166,27 @@ public class yPlayerAI : MonoBehaviour {
         transform.position += new Vector3(workSpeed, 0, 0);
     }
 
-    //指定したTagを探して配列番号を返す
-    private int TagNum(RaycastHit2D[] hitObject, string tagName)
+    //Rayが何かに当たっているかどうか
+    private bool FlgHitObject(RaycastHit2D[] hitObject)
+    {
+        if (hitObject.Length > 0)
+            return true;
+
+        return false;
+    }
+
+    //タグに当たっているかどうか
+    private bool FlgTagHitObject(RaycastHit2D[] hitObject, string tagName)
     {
         for (int i = 0; i < hitObject.Length; i++)
         {
             if (hitObject[i].collider.gameObject.CompareTag(tagName))
             {
-                return i;
+                return true;
             }
         }
 
-        return 0;
+        return false;
     }
 
     //ジャンプと自由落下
@@ -202,7 +221,7 @@ public class yPlayerAI : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D coll)
     {
-        if (coll.gameObject.CompareTag("block"))
+        if (coll.gameObject.CompareTag("block") || coll.gameObject.CompareTag("gimmick"))
         {
             //print("触れている");
             flgJump = false;
@@ -213,12 +232,13 @@ public class yPlayerAI : MonoBehaviour {
         if (coll.gameObject.CompareTag("Needle"))
         {
             print("死亡");
+            GetComponent<SpriteRenderer>().color = new Color(0, 0, 0, 0);
         }
     }
 
     private void OnTriggerExit2D(Collider2D coll)
     {
-        if (coll.gameObject.CompareTag("block"))
+        if (coll.gameObject.CompareTag("block") || coll.gameObject.CompareTag("gimmick"))
         {
             //print("離れた");
 
