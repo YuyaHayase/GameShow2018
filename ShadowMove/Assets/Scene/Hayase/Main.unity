@@ -240,6 +240,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   y: 0
   speed: 1
+  flgEnding: 0
 --- !u!114 &121441241
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -442,10 +443,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stageName:
-  - {fileID: 1079465777368868, guid: b9afd7ae140f43c4e9e23cc7b88fa466, type: 2}
-  - {fileID: 1510492853915186, guid: 63e12e040f225674cacc4c8d9d8d20d8, type: 2}
-  - {fileID: 1987257144919600, guid: cd44548de066174478ef68dbf6b53c02, type: 2}
-  - {fileID: 1262663462396724, guid: a4459395c4f03cb4483decf89626a67c, type: 2}
+  - {fileID: 1551350124313608, guid: dce32d94e3cd71d4ebecb1f926fb6a7e, type: 2}
+  - {fileID: 1519145279140996, guid: dbfb8a05fa9a16a45ad5c7ffa6e6af61, type: 2}
+  - {fileID: 1463242784018718, guid: 66a4dde166c2e4e42b45c258e1c2dd4b, type: 2}
+  - {fileID: 1694403614638544, guid: 35e934b4e4d4fe04eaed0f68c0b79cc3, type: 2}
   Enemys:
   - {fileID: 1509804591350502, guid: bf24167b5bafdc64591170c0b1c13da5, type: 2}
   - {fileID: 1883602624248242, guid: 3e21ebbdedaf5f1458b777559cb46f55, type: 2}

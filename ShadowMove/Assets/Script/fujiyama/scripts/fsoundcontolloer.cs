@@ -26,6 +26,7 @@ public class fsoundcontolloer : MonoBehaviour {
         {
             DontDestroyOnLoad(this);
             flg = false;
+            audio = GetComponent<AudioSource>();
         }
         else
         {
@@ -33,7 +34,7 @@ public class fsoundcontolloer : MonoBehaviour {
         }
 
 	}
-	
+
 	// Update is called once per frame
 
 

@@ -56,6 +56,9 @@ public class hTutrialDirector : MonoBehaviour {
     [SerializeField, Header("なんフレーム経ったら始めるか")]
     float Tut_cnt = 60;
 
+    [SerializeField]
+    GameObject BGM;
+
     private void Start()
     {
         // チュートリアル専用ステージのマップタイルのタグを変更
@@ -72,6 +75,13 @@ public class hTutrialDirector : MonoBehaviour {
 
         if (null == hackObj)
             Debug.Log("オブジェクトいれて");
+
+        if (null == BGM) BGM = GameObject.Find("Sound");
+        if (null != BGM)
+        {
+            Debug.Log(BGM.GetComponent<fsoundcontolloer>().BGM[0]);
+            BGM.GetComponent<fsoundcontolloer>().select_BGM(0);
+        }
     }
 
     // Update is called once per frame
