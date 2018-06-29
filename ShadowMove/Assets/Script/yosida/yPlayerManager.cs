@@ -1,11 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class yPlayerManager : MonoBehaviour {
 
     [SerializeField, Header("画面外に出たときに表示する画像")]
     SpriteRenderer spr;
+    
+    //ブラーの最大回数
+    int BlurCeling = 3;
+    int BlurCount = 0;
+
+    int frameCount = 0;
 
     [SerializeField, Header("Playerが移動できるx軸の最大範囲")]
     float xMax;
@@ -13,9 +20,19 @@ public class yPlayerManager : MonoBehaviour {
     float xMin;
 
     bool flgOut = false;
+    bool flgDeath = false;
 
-	// Use this for initialization
-	void Start () {
+    hBlur _hBlur;
+
+    public bool FlgDeath
+    {
+        set { flgDeath = value; }
+    }
+
+    // Use this for initialization
+    void Start () {
+        _hBlur = Camera.main.GetComponent<hBlur>();
+
         spr = Instantiate(spr);
         spr.enabled = false;
 	}
@@ -63,6 +80,31 @@ public class yPlayerManager : MonoBehaviour {
         {
             spr.enabled = false;
         }
+
+        //死んだとき
+        if (flgDeath)
+        {
+            transform.Rotate(0, 0, -1.0f);
+            if (transform.eulerAngles.z < 270.0f)
+            {
+                transform.localRotation = Quaternion.Euler(0, 0, 270.0f);
+                _hBlur.BlurSwitch(true);
+                frameCount++;
+
+                if (frameCount > 20)
+                {
+                    frameCount = 0;
+                    BlurCount++;
+                    _hBlur.BlurChange(hBlur.PlusMinus.plus);
+
+                    if (BlurCount > BlurCeling)
+                    {
+                        flgDeath = false;
+                        SceneManager.LoadScene("gameover3");
+                    }
+                }
+            }
+        }
 	}
 
     //画面外に出たとき
@@ -76,5 +118,6 @@ public class yPlayerManager : MonoBehaviour {
     {
         flgOut = false;
     }
+
 
 }

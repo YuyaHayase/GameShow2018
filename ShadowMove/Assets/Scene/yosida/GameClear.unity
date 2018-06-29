@@ -363,12 +363,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 379833734}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 22b9115e856a3e248b3c413d206d68a6, type: 3}
+  m_Script: {fileID: 11500000, guid: 3d66798b8ccf4554187ba93dfe5399fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   y: 2
-  speed: 1
-  flgEnding: 1
 --- !u!1 &468400822
 GameObject:
   m_ObjectHideFlags: 0
@@ -949,52 +947,64 @@ MonoBehaviour:
   textPrefab: {fileID: 743587180}
   textShodowPrefab: {fileID: 1912495791}
   staffRoll:
-  - text: "\u4F01\u753B\u3000\u85E4\u5C71"
+  - text: "\u4F01\u753B\u3000\u30DD\u30B8"
     textPos: {x: 17, y: 121, z: 0}
     size: {x: 565.7, y: 78.8}
   - text: "\u30D7\u30ED\u30B0\u30E9\u30DE\u30FC"
-    textPos: {x: -192.3, y: 80, z: 0}
+    textPos: {x: -92.18, y: 85, z: 0}
     size: {x: 344.6, y: 78.8}
-  - text: "\u85E4\u5C71 \u65E9\u702C \u5409\u7530"
-    textPos: {x: 165, y: 78, z: 0}
+  - text: "\u5168\u54E1"
+    textPos: {x: 237.41, y: 85, z: 0}
     size: {x: 419.9, y: 78.8}
   - text: "UI\u62C5\u5F53"
     textPos: {x: -41, y: 85, z: 0}
     size: {x: 0, y: 0}
-  - text: "\u85E4\u5C71"
+  - text: "\u30DD\u30B8"
     textPos: {x: 196.32, y: 85, z: 0}
     size: {x: 0, y: 0}
   - text: "\u30A4\u30E9\u30B9\u30C8\u62C5\u5F53"
     textPos: {x: -111.02, y: 85, z: 0}
     size: {x: 0, y: 0}
-  - text: "\u65E9\u702C"
+  - text: "\u3086"
     textPos: {x: 224.6, y: 85, z: 0}
     size: {x: 0, y: 0}
-  - text: "\u76E3\u7763\u3000\u65E9\u702C"
+  - text: "\u76E3\u7763\u3000\u3086"
     textPos: {x: 3, y: 83, z: 0}
     size: {x: 344.6, y: 78.8}
   - text: "Player\u62C5\u5F53"
     textPos: {x: -111.02, y: 85, z: 0}
     size: {x: -111.02, y: 85}
-  - text: "\u5409\u7530"
+  - text: "\u3088\u3063\u3057\u30FC"
     textPos: {x: 224.6, y: 83, z: 0}
     size: {x: 224.6, y: 85}
   - text: "\u5F71\u62C5\u5F53"
     textPos: {x: -111.02, y: 85, z: 0}
     size: {x: -111.02, y: 85}
-  - text: "\u85E4\u5C71"
+  - text: "\u30DD\u30B8"
     textPos: {x: 224.6, y: 85, z: 0}
     size: {x: 344.6, y: 78.8}
   - text: "Enemy\u62C5\u5F53"
     textPos: {x: -111.02, y: 85, z: 0}
     size: {x: -111.02, y: 85}
-  - text: "\u65E9\u702C"
+  - text: "\u3086"
     textPos: {x: 224.6, y: 85, z: 0}
+    size: {x: 344.6, y: 78.8}
+  - text: "\u305D\u306E\u4ED6 \u96D1\u7528"
+    textPos: {x: -111.02, y: 85, z: 0}
+    size: {x: 344.6, y: 78.8}
+  - text: "\u3088\u3063\u3057\u30FC"
+    textPos: {x: 224.6, y: 85, z: 0}
+    size: {x: 344.6, y: 78.8}
+  - text: "\u30C1\u30FC\u30E0\u540D"
+    textPos: {x: -192.3, y: 85, z: 0}
+    size: {x: 344.6, y: 78.8}
+  - text: "\u30D5\u30B8\u30AB\u30F3\u30D1\u30CB\u30FC"
+    textPos: {x: 165, y: 85, z: 0}
     size: {x: 344.6, y: 78.8}
   - text: Game  Clear
     textPos: {x: 3, y: 83, z: 0}
     size: {x: 344.6, y: 78.8}
-  displayNum: 010000000200000002000000020000000100000002000000020000000200000001000000
+  displayNum: 0100000002000000020000000200000001000000020000000200000002000000020000000200000001000000
   t: 0
   accele: 0.5
   alphaAccele: 0.2

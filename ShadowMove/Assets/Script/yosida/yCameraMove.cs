@@ -45,41 +45,22 @@ public class yCameraMove : MonoBehaviour {
     [SerializeField,Header("カメラ移動")]
     float speed = 1.0f;
     
-
-    [SerializeField,Header("エンディング用")]
-    bool flgEnding = false;
-
     fShodow _fShodow;
 
 	// Use this for initialization
 	void Start () {
-        stage = GameObject.FindGameObjectWithTag("Stage");
         player = GameObject.Find("player");
         shodow = GameObject.Find("shodow");
         _fShodow = shodow.GetComponent<fShodow>();
 
-        for(int i = 0;i < cameraRange.Count; i++)
-        {
-            if(stage.name == cameraRange[i].StageName)
-            {
-                stageNum = i;
-                break;
-            }
-        }
+        StartCoroutine("Delay");
     }
 	
 	// Update is called once per frame
 	void Update () {
 
-        //エンディング用
-        if (flgEnding)
-        {
-            transform.position = new Vector3(shodow.transform.position.x,
-                                             shodow.transform.position.y + y,
-                                             transform.position.z);
-        }
         //乗り移っている最中
-         else if (_fShodow.FlgPossess)
+        if (_fShodow.FlgPossess)
         {
             //カメラを乗り移っているオブジェクトに追従
             if (transform.position == _fShodow.obj.transform.position)
@@ -126,5 +107,26 @@ public class yCameraMove : MonoBehaviour {
             transform.position = pos;
         }
 
+    }
+
+    private IEnumerator Delay()
+    {
+        enabled = false;
+
+        yield return new WaitForEndOfFrame();
+        stage = GameObject.FindGameObjectWithTag("Stage");
+        print(stage);
+
+        for (int i = 0; i < cameraRange.Count; i++)
+        {
+            if (stage.name == cameraRange[i].StageName + "(Clone)")
+            {
+                stageNum = i;
+                break;
+            }
+        }
+
+        enabled = true;
+        yield break;
     }
 }

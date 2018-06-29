@@ -45,6 +45,8 @@ public class yPlayerAI : MonoBehaviour {
     bool flgFilter = false;
     bool flg = true;
 
+    yPlayerManager _yPlayerManger;
+
     public float Speed
     {
         set { speed = value; }
@@ -63,6 +65,7 @@ public class yPlayerAI : MonoBehaviour {
         //コンポーネント取得
         rigi2D = GetComponent<Rigidbody2D>();
         box2D = GetComponent<BoxCollider2D>();
+        _yPlayerManger = GetComponent<yPlayerManager>();
 
     }
 
@@ -235,8 +238,9 @@ public class yPlayerAI : MonoBehaviour {
 
         if (coll.gameObject.CompareTag("Needle"))
         {
-            print("死亡");
-            GetComponent<SpriteRenderer>().color = new Color(0, 0, 0, 0);
+            _yPlayerManger.FlgDeath = true;
+            enabled = false;
+            //GetComponent<SpriteRenderer>().color = new Color(0, 0, 0, 0);
         }
     }
 
