@@ -18,7 +18,7 @@ public class timeover : MonoBehaviour {
 
     int ra = 1, rb = 1, rg = 0;
 
-    int mode = 1;
+   public int mode = 1;
 
     [SerializeField]
     Color morining;
@@ -44,7 +44,7 @@ public class timeover : MonoBehaviour {
         //green = (1.0f - t) * RG + t * rg;
         //blue = (1.0f - t) * RB +t * rb;
 
-        t += Time.deltaTime * 0.1f;
+        t += Time.deltaTime * 0.03f;
 
       switch(mode)
         {

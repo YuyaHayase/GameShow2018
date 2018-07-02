@@ -21,6 +21,7 @@ public class ySceneMove : MonoBehaviour {
         if (coll.gameObject.CompareTag("Player"))
         {
             _yfade.FlgFadeOut = true;
+            _yfade.NextScene = "Main";
             coll.GetComponent<yPlayerAI>().Speed = 0;
 
         }

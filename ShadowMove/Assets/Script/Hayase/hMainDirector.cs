@@ -18,7 +18,7 @@ public class hMainDirector : MonoBehaviour {
     GameObject[] Enemys = new GameObject[2];
 
     [SerializeField, Header("表示用->ステージセレクト")]
-    private int selected = StageSelect;
+    private static int selected = StageSelect;
 
     [SerializeField, Header("表示用->実際の表示ステージ")]
     GameObject DispStage;
@@ -97,6 +97,7 @@ public class hMainDirector : MonoBehaviour {
         if (selected + 1 > stageName.Length - 1)
         {
             StageSelect = 0;
+            selected = 0;
             SceneManager.LoadScene(bossStage);
         }
 

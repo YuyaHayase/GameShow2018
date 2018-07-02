@@ -39,7 +39,7 @@ public class fShodow : MonoBehaviour
 
     hBlur _hBlur;
 
-       
+    public GameObject sund;   
 
         public void Statas(int _HP,float _shedowwalk,float _r, int _Dame)
         {
@@ -98,6 +98,8 @@ public class fShodow : MonoBehaviour
 
     void Start()
     {
+        sund = GameObject.Find("Sound");
+        if(null != sund)sund.GetComponent<fsoundcontolloer>().select_BGM(1);
         Statas(_HP,waik, r,1);
         player = GameObject.Find("player");
         walkflg = true;
